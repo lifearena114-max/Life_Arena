@@ -1,0 +1,5 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import DashboardApp from "@/lifearena/DashboardApp";
+
+export const Route = createFileRoute("/dashboard")({ validateSearch: (search: Record<string, unknown>) => ({ goal: typeof search["goal"] === "string" ? search["goal"] : "Full-Stack Dev" }), head: () => ({ meta: [{ title: "Dashboard — LifeArena" }, { name: "description", content: "Track quests, progress, decisions, and your LifeArena growth journey." }, { property: "og:title", content: "Dashboard — LifeArena" }, { property: "og:description", content: "Track quests, progress, decisions, and your LifeArena growth journey." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: DashboardRoute });
+function DashboardRoute() { const navigate = useNavigate(); const { goal } = Route.useSearch(); return <DashboardApp initialGoal={goal} onNewGoal={() => navigate({ to: "/onboarding", search: { name: "Alex Mercer", handle: "alexmercer" } })} />; }
