@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserProfile } from '../types';
+import React, { useState } from "react";
+import { UserProfile } from "../types";
 
 interface HeaderProps {
   user: UserProfile;
@@ -17,31 +17,31 @@ export const Header: React.FC<HeaderProps> = ({
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([
     {
-      id: 'n1',
-      title: 'Streak Milestone Unlocked!',
-      desc: 'You reached 12 consecutive days. +50 XP bonus earned.',
-      time: '10m ago',
+      id: "n1",
+      title: "Streak Milestone Unlocked!",
+      desc: "You reached 12 consecutive days. +50 XP bonus earned.",
+      time: "10m ago",
       unread: true,
-      icon: 'local_fire_department',
-      color: 'text-[#f59e0b]',
+      icon: "local_fire_department",
+      color: "text-[#f59e0b]",
     },
     {
-      id: 'n2',
-      title: 'Squad Cheer Received',
-      desc: 'Sarah L. high-fived your latest milestone!',
-      time: '45m ago',
+      id: "n2",
+      title: "Squad Cheer Received",
+      desc: "Sarah L. high-fived your latest milestone!",
+      time: "45m ago",
       unread: true,
-      icon: 'waving_hand',
-      color: 'text-[#56e5a9]',
+      icon: "waving_hand",
+      color: "text-[#56e5a9]",
     },
     {
-      id: 'n3',
-      title: 'New Arena Deliberation',
-      desc: 'Priya M. posted a high-stakes Career decision.',
-      time: '1h ago',
+      id: "n3",
+      title: "New Arena Deliberation",
+      desc: "Priya M. posted a high-stakes Career decision.",
+      time: "1h ago",
       unread: false,
-      icon: 'balance',
-      color: 'text-[#c0c1ff]',
+      icon: "balance",
+      color: "text-[#c0c1ff]",
     },
   ]);
 
@@ -100,7 +100,9 @@ export const Header: React.FC<HeaderProps> = ({
           {showNotifications && (
             <div className="absolute right-0 top-12 w-80 bg-[#1c1f29] rounded-xl border border-[#262a34] shadow-[0_10px_30px_rgba(0,0,0,0.6)] p-space-md flex flex-col gap-space-sm z-50 animate-in fade-in zoom-in-95 duration-200">
               <div className="flex items-center justify-between pb-1 border-b border-[#262a34]">
-                <span className="font-headline-sm text-headline-sm text-[#dfe2ef]">Notifications</span>
+                <span className="font-headline-sm text-headline-sm text-[#dfe2ef]">
+                  Notifications
+                </span>
                 {hasUnread && (
                   <button
                     onClick={markAllRead}
@@ -115,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <div
                     key={n.id}
                     className={`flex items-start gap-space-sm p-space-sm rounded-lg transition-colors ${
-                      n.unread ? 'bg-[#262a34]/70' : 'hover:bg-[#262a34]/40'
+                      n.unread ? "bg-[#262a34]/70" : "hover:bg-[#262a34]/40"
                     }`}
                   >
                     <span className={`material-symbols-outlined text-[18px] mt-0.5 ${n.color}`}>

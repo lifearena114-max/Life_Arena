@@ -4,16 +4,40 @@ import { Button } from "@/components/ui/button";
 import { BrandMark } from "./BrandMark";
 
 const features = [
-  { icon: Compass, title: "Goals that hold", body: "Turn a vague ambition into a structured arena with levels, XP, and visible momentum." },
-  { icon: Bolt, title: "AI journeys & quests", body: "Your roadmap is generated for your pace and commitment, then broken into daily quests." },
-  { icon: Scale, title: "Decision Arena", body: "Stuck on a choice? Put it to your cohort and get an AI perspective alongside real votes." },
-  { icon: Users, title: "Squads", body: "Grow beside people chasing the same thing. Streaks are easier when someone is watching." },
+  {
+    icon: Compass,
+    title: "Goals that hold",
+    body: "Turn a vague ambition into a structured arena with levels, XP, and visible momentum.",
+  },
+  {
+    icon: Bolt,
+    title: "AI journeys & quests",
+    body: "Your roadmap is generated for your pace and commitment, then broken into daily quests.",
+  },
+  {
+    icon: Scale,
+    title: "Decision Arena",
+    body: "Stuck on a choice? Put it to your cohort and get an AI perspective alongside real votes.",
+  },
+  {
+    icon: Users,
+    title: "Squads",
+    body: "Grow beside people chasing the same thing. Streaks are easier when someone is watching.",
+  },
 ];
 
 const steps = [
   { n: "01", title: "Create your profile", body: "Name, handle, and you're in the arena." },
-  { n: "02", title: "Answer 4 questions", body: "Focus, goal, pace, and what actually motivates you." },
-  { n: "03", title: "Get your journey", body: "A personalized roadmap and your first quest, ready to start." },
+  {
+    n: "02",
+    title: "Answer 4 questions",
+    body: "Focus, goal, pace, and what actually motivates you.",
+  },
+  {
+    n: "03",
+    title: "Get your journey",
+    body: "A personalized roadmap and your first quest, ready to start.",
+  },
 ];
 
 export function LandingPage() {
@@ -47,17 +71,29 @@ export function LandingPage() {
             streaks, and a squad that keeps you honest.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="h-12 px-7 font-bold shadow-[0_0_28px_var(--glow-primary)]">
-              <Link to="/signup">Start your journey <ArrowRight /></Link>
+            <Button
+              asChild
+              size="lg"
+              className="h-12 px-7 font-bold shadow-[0_0_28px_var(--glow-primary)]"
+            >
+              <Link to="/signup">
+                Start your journey <ArrowRight />
+              </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-12 bg-card px-7 font-semibold">
               <Link to="/login">I already have an account</Link>
             </Button>
           </div>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2"><Flame className="size-4 text-primary" /> 12-day average streak</span>
-            <span className="inline-flex items-center gap-2"><Users className="size-4 text-primary" /> 8,400 builders in squads</span>
-            <span className="inline-flex items-center gap-2"><Bolt className="size-4 text-primary" /> 60k quests completed</span>
+            <span className="inline-flex items-center gap-2">
+              <Flame className="size-4 text-primary" /> 12-day average streak
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Users className="size-4 text-primary" /> 8,400 builders in squads
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Bolt className="size-4 text-primary" /> 60k quests completed
+            </span>
           </div>
         </div>
       </section>
@@ -78,7 +114,9 @@ export function LandingPage() {
 
       <section className="border-y border-border bg-card/40">
         <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8">
-          <h2 className="text-center font-display text-3xl font-bold">From idea to first quest in minutes</h2>
+          <h2 className="text-center font-display text-3xl font-bold">
+            From idea to first quest in minutes
+          </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
             {steps.map((step) => (
               <div key={step.n}>
@@ -92,12 +130,20 @@ export function LandingPage() {
       </section>
 
       <section className="mx-auto max-w-[1200px] px-5 py-20 text-center sm:px-8">
-        <h2 className="font-display text-3xl font-bold sm:text-4xl">Stop planning. Start levelling.</h2>
+        <h2 className="font-display text-3xl font-bold sm:text-4xl">
+          Stop planning. Start levelling.
+        </h2>
         <p className="mx-auto mt-3 max-w-md text-muted-foreground">
           Your first journey takes four questions and about ninety seconds.
         </p>
-        <Button asChild size="lg" className="mt-8 h-12 px-8 font-bold shadow-[0_0_28px_var(--glow-primary)]">
-          <Link to="/signup">Create your account <ArrowRight /></Link>
+        <Button
+          asChild
+          size="lg"
+          className="mt-8 h-12 px-8 font-bold shadow-[0_0_28px_var(--glow-primary)]"
+        >
+          <Link to="/signup">
+            Create your account <ArrowRight />
+          </Link>
         </Button>
       </section>
 

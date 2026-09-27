@@ -7,7 +7,11 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
         <Hexagon className="size-5" fill="currentColor" />
       </span>
       <span className="font-display text-lg font-bold uppercase text-foreground">LifeArena</span>
-      {!compact && <span className="hidden text-[10px] font-bold uppercase text-primary sm:inline">Ecosystem v2.4</span>}
+      {!compact && (
+        <span className="hidden text-[10px] font-bold uppercase text-primary sm:inline">
+          Ecosystem v2.4
+        </span>
+      )}
     </div>
   );
 }

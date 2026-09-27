@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserProfile } from '../types';
+import React, { useState } from "react";
+import { UserProfile } from "../types";
 
 interface DailyCheckinModalProps {
   isOpen: boolean;
@@ -44,7 +44,7 @@ export const DailyCheckinModal: React.FC<DailyCheckinModalProps> = ({
             Day {user.streakDays + 1} Momentum
           </h2>
           <p className="font-body-md text-body-md text-[#a5b0c8]">
-            Commit to today&apos;s cycle, protect your unbroken streak, and bank{' '}
+            Commit to today&apos;s cycle, protect your unbroken streak, and bank{" "}
             <strong className="text-[#56e5a9]">+25 XP</strong>.
           </p>
         </div>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Quest } from '../types';
+import React, { useState } from "react";
+import { Quest } from "../types";
 
 interface ReflectionModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
   quest,
   onSaveReflection,
 }) => {
-  const [reflectionText, setReflectionText] = useState(quest?.reflectionSaved || '');
+  const [reflectionText, setReflectionText] = useState(quest?.reflectionSaved || "");
 
   if (!isOpen || !quest) return null;
 
@@ -47,7 +47,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = ({
             Cognitive Prompt
           </span>
           <p className="font-headline-sm text-headline-sm text-[#dfe2ef]">
-            {quest.promptText || 'What was your main breakthrough during async debugging?'}
+            {quest.promptText || "What was your main breakthrough during async debugging?"}
           </p>
         </div>
 

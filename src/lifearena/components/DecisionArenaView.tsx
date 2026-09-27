@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { TOP_CONTRIBUTORS } from '../data/mockData';
-import { DecisionPoll, UserProfile } from '../types';
+import React, { useState } from "react";
+import { TOP_CONTRIBUTORS } from "../data/mockData";
+import { DecisionPoll, UserProfile } from "../types";
 
 interface DecisionArenaViewProps {
   user: UserProfile;
   polls: DecisionPoll[];
-  onVote: (pollId: string, option: 'A' | 'B') => void;
+  onVote: (pollId: string, option: "A" | "B") => void;
   onOpenAskModal: () => void;
 }
 
@@ -15,28 +15,28 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
   onVote,
   onOpenAskModal,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [perspectives, setPerspectives] = useState<{ [pollId: string]: string[] }>({
-    'd-spotlight': [
-      'Series A will push you out of your comfort zone. The learning speed is incomparable!',
-      'Make sure to calculate dilution. 0.2% can become 0.04% after Series B/C.',
+    "d-spotlight": [
+      "Series A will push you out of your comfort zone. The learning speed is incomparable!",
+      "Make sure to calculate dilution. 0.2% can become 0.04% after Series B/C.",
     ],
   });
   const [commentInput, setCommentInput] = useState<{ [pollId: string]: string }>({});
   const [activeCommentPollId, setActiveCommentPollId] = useState<string | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All' },
-    { id: 'trending', label: 'Trending 🔥' },
-    { id: 'career', label: 'Career' },
-    { id: 'tech', label: 'Tech & Code' },
-    { id: 'money', label: 'Money' },
-    { id: 'lifestyle', label: 'Health & Lifestyle' },
-    { id: 'mine', label: 'My Decisions' },
+    { id: "all", label: "All" },
+    { id: "trending", label: "Trending 🔥" },
+    { id: "career", label: "Career" },
+    { id: "tech", label: "Tech & Code" },
+    { id: "money", label: "Money" },
+    { id: "lifestyle", label: "Health & Lifestyle" },
+    { id: "mine", label: "My Decisions" },
   ];
 
   const filteredPolls = polls.filter((p) => {
-    if (selectedCategory === 'all' || selectedCategory === 'trending') return true;
+    if (selectedCategory === "all" || selectedCategory === "trending") return true;
     return p.category === selectedCategory;
   });
 
@@ -51,7 +51,7 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
       ...prev,
       [pollId]: [...(prev[pollId] || []), text],
     }));
-    setCommentInput((prev) => ({ ...prev, [pollId]: '' }));
+    setCommentInput((prev) => ({ ...prev, [pollId]: "" }));
   };
 
   return (
@@ -64,14 +64,16 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
               <span className="w-2 h-2 rounded-full bg-[#56e5a9] animate-pulse" />
               4,892 active minds online
             </span>
-            <span className="text-[#a5b0c8] font-label-sm text-label-sm">• Collective Intelligence</span>
+            <span className="text-[#a5b0c8] font-label-sm text-label-sm">
+              • Collective Intelligence
+            </span>
           </div>
           <h1 className="font-headline-xl text-headline-xl text-[#dfe2ef] tracking-tight">
             Decision Arena
           </h1>
           <p className="font-body-md text-body-md text-[#a5b0c8] max-w-3xl">
-            Leverage crowd wisdom, algorithmic Bayesian modeling, and real-world outcomes to navigate
-            high-stakes life dilemmas.
+            Leverage crowd wisdom, algorithmic Bayesian modeling, and real-world outcomes to
+            navigate high-stakes life dilemmas.
           </p>
         </div>
 
@@ -92,8 +94,8 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
             onClick={() => setSelectedCategory(cat.id)}
             className={`px-space-md py-1.5 rounded-full font-label-md text-label-md transition-all whitespace-nowrap cursor-pointer ${
               selectedCategory === cat.id
-                ? 'bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_16px_rgba(245,158,11,0.3)]'
-                : 'bg-[#181b25] text-[#a5b0c8] hover:text-[#dfe2ef] hover:bg-[#262a34] border border-[#262a34]'
+                ? "bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_16px_rgba(245,158,11,0.3)]"
+                : "bg-[#181b25] text-[#a5b0c8] hover:text-[#dfe2ef] hover:bg-[#262a34] border border-[#262a34]"
             }`}
           >
             {cat.label}
@@ -155,11 +157,11 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
               <div className="flex flex-col gap-space-sm mb-space-lg">
                 {/* Option A */}
                 <div
-                  onClick={() => onVote(spotlightPoll.id, 'A')}
+                  onClick={() => onVote(spotlightPoll.id, "A")}
                   className={`relative overflow-hidden rounded-xl bg-[#181b25] p-space-md flex items-center justify-between cursor-pointer border transition-all ${
-                    spotlightPoll.userVoted === 'A'
-                      ? 'border-[#ffc174] ring-1 ring-[#ffc174]'
-                      : 'border-[#262a34] hover:border-[#ffc174]/40'
+                    spotlightPoll.userVoted === "A"
+                      ? "border-[#ffc174] ring-1 ring-[#ffc174]"
+                      : "border-[#262a34] hover:border-[#ffc174]/40"
                   }`}
                 >
                   <div
@@ -169,12 +171,12 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                   <div className="relative z-10 flex items-start gap-space-sm">
                     <div
                       className={`w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center transition-all ${
-                        spotlightPoll.userVoted === 'A'
-                          ? 'border-[#ffc174] bg-[#ffc174]'
-                          : 'border-[#a5b0c8]'
+                        spotlightPoll.userVoted === "A"
+                          ? "border-[#ffc174] bg-[#ffc174]"
+                          : "border-[#a5b0c8]"
                       }`}
                     >
-                      {spotlightPoll.userVoted === 'A' && (
+                      {spotlightPoll.userVoted === "A" && (
                         <span className="material-symbols-outlined text-[14px] text-[#472a00] font-bold">
                           check
                         </span>
@@ -201,11 +203,11 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
 
                 {/* Option B */}
                 <div
-                  onClick={() => onVote(spotlightPoll.id, 'B')}
+                  onClick={() => onVote(spotlightPoll.id, "B")}
                   className={`relative overflow-hidden rounded-xl bg-[#181b25] p-space-md flex items-center justify-between cursor-pointer border transition-all ${
-                    spotlightPoll.userVoted === 'B'
-                      ? 'border-[#c0c1ff] ring-1 ring-[#c0c1ff]'
-                      : 'border-[#262a34] hover:border-[#c0c1ff]/40'
+                    spotlightPoll.userVoted === "B"
+                      ? "border-[#c0c1ff] ring-1 ring-[#c0c1ff]"
+                      : "border-[#262a34] hover:border-[#c0c1ff]/40"
                   }`}
                 >
                   <div
@@ -215,12 +217,12 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                   <div className="relative z-10 flex items-start gap-space-sm">
                     <div
                       className={`w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center transition-all ${
-                        spotlightPoll.userVoted === 'B'
-                          ? 'border-[#c0c1ff] bg-[#c0c1ff]'
-                          : 'border-[#a5b0c8]'
+                        spotlightPoll.userVoted === "B"
+                          ? "border-[#c0c1ff] bg-[#c0c1ff]"
+                          : "border-[#a5b0c8]"
                       }`}
                     >
-                      {spotlightPoll.userVoted === 'B' && (
+                      {spotlightPoll.userVoted === "B" && (
                         <span className="material-symbols-outlined text-[14px] text-[#1000a9] font-bold">
                           check
                         </span>
@@ -268,21 +270,19 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                   <button
                     onClick={() =>
                       setActiveCommentPollId(
-                        activeCommentPollId === spotlightPoll.id ? null : spotlightPoll.id
+                        activeCommentPollId === spotlightPoll.id ? null : spotlightPoll.id,
                       )
                     }
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef] font-label-md text-label-md transition-all cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[16px]">chat</span>
-                    <span>
-                      {perspectives[spotlightPoll.id]?.length || 0} Perspectives
-                    </span>
+                    <span>{perspectives[spotlightPoll.id]?.length || 0} Perspectives</span>
                   </button>
                   <button
                     onClick={() => {
                       if (navigator.clipboard) {
                         navigator.clipboard.writeText(window.location.href);
-                        alert('Dilemma link copied to clipboard!');
+                        alert("Dilemma link copied to clipboard!");
                       }
                     }}
                     className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[#a5b0c8] hover:text-[#dfe2ef] hover:bg-[#262a34] font-label-md text-label-md transition-all cursor-pointer"
@@ -293,7 +293,8 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                 </div>
 
                 <div className="font-label-sm text-label-sm text-[#a5b0c8]">
-                  Total Votes: <strong className="text-[#dfe2ef]">{spotlightPoll.totalVotes}</strong>
+                  Total Votes:{" "}
+                  <strong className="text-[#dfe2ef]">{spotlightPoll.totalVotes}</strong>
                 </div>
               </div>
 
@@ -317,12 +318,12 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                     <input
                       type="text"
                       placeholder="Add your objective perspective..."
-                      value={commentInput[spotlightPoll.id] || ''}
+                      value={commentInput[spotlightPoll.id] || ""}
                       onChange={(e) =>
                         setCommentInput({ ...commentInput, [spotlightPoll.id]: e.target.value })
                       }
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleAddPerspective(spotlightPoll.id);
+                        if (e.key === "Enter") handleAddPerspective(spotlightPoll.id);
                       }}
                       className="flex-1 bg-[#0a0e17] text-[#dfe2ef] text-[13px] px-3 py-2 rounded-lg border border-[#262a34] focus:border-[#f59e0b] outline-none"
                     />
@@ -380,9 +381,9 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm my-space-xs">
                   {/* Option A */}
                   <div
-                    onClick={() => onVote(poll.id, 'A')}
+                    onClick={() => onVote(poll.id, "A")}
                     className={`relative overflow-hidden rounded-lg bg-[#181b25] p-space-sm flex items-center justify-between cursor-pointer border ${
-                      poll.userVoted === 'A' ? 'border-[#ffc174]' : 'border-[#262a34]'
+                      poll.userVoted === "A" ? "border-[#ffc174]" : "border-[#262a34]"
                     }`}
                   >
                     <div
@@ -399,9 +400,9 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
 
                   {/* Option B */}
                   <div
-                    onClick={() => onVote(poll.id, 'B')}
+                    onClick={() => onVote(poll.id, "B")}
                     className={`relative overflow-hidden rounded-lg bg-[#181b25] p-space-sm flex items-center justify-between cursor-pointer border ${
-                      poll.userVoted === 'B' ? 'border-[#c0c1ff]' : 'border-[#262a34]'
+                      poll.userVoted === "B" ? "border-[#c0c1ff]" : "border-[#262a34]"
                     }`}
                   >
                     <div
@@ -509,9 +510,7 @@ export const DecisionArenaView: React.FC<DecisionArenaViewProps> = ({
           {/* Arena Stats */}
           <div className="bg-[#1c1f29] rounded-xl p-space-md flex items-center justify-between border border-[#262a34]/50">
             <div className="flex items-center gap-space-sm">
-              <span className="material-symbols-outlined text-[#30c88f] text-[24px]">
-                task_alt
-              </span>
+              <span className="material-symbols-outlined text-[#30c88f] text-[24px]">task_alt</span>
               <div className="flex flex-col">
                 <span className="font-label-md text-label-md text-[#dfe2ef]">
                   1,280 Decisions Resolved

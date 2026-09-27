@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserProfile } from '../types';
+import React, { useState } from "react";
+import { UserProfile } from "../types";
 
 interface ProfileViewProps {
   user: UserProfile;
@@ -7,11 +7,7 @@ interface ProfileViewProps {
   onResetDemo: () => void;
 }
 
-export const ProfileView: React.FC<ProfileViewProps> = ({
-  user,
-  onUpdateUser,
-  onResetDemo,
-}) => {
+export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateUser, onResetDemo }) => {
   const [editingName, setEditingName] = useState(user.name);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -66,7 +62,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 />
                 <div className="flex flex-col">
                   <div className="flex items-baseline gap-2">
-                    <h2 className="font-headline-lg text-headline-lg text-[#dfe2ef]">{user.name}</h2>
+                    <h2 className="font-headline-lg text-headline-lg text-[#dfe2ef]">
+                      {user.name}
+                    </h2>
                     <span className="text-body-sm text-[#a5b0c8]">{user.handle}</span>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
@@ -165,14 +163,14 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   type="submit"
                   className="py-2 px-4 rounded-lg bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef] font-label-md text-label-md transition-colors cursor-pointer"
                 >
-                  {isSaved ? 'Name Updated!' : 'Save Name'}
+                  {isSaved ? "Name Updated!" : "Save Name"}
                 </button>
               </form>
 
               <div className="pt-space-sm border-t border-[#262a34] flex flex-col gap-space-xs">
                 <span className="text-[12px] text-[#a5b0c8]">Preset Switcher:</span>
                 <div className="flex gap-2">
-                  {['Ashwani', 'Alex Mercer', 'Devon'].map((name) => (
+                  {["Ashwani", "Alex Mercer", "Devon"].map((name) => (
                     <button
                       key={name}
                       onClick={() => onUpdateUser({ name })}

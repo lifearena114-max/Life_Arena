@@ -1,6 +1,6 @@
-import React from 'react';
-import { NavScreen, UserProfile } from '../types';
-import { BrandMark } from '../BrandMark';
+import React from "react";
+import { NavScreen, UserProfile } from "../types";
+import { BrandMark } from "../BrandMark";
 
 interface SidebarProps {
   currentScreen: NavScreen;
@@ -9,18 +9,14 @@ interface SidebarProps {
   onOpenNewGoal: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
-  currentScreen,
-  onNavigate,
-  user,
-}) => {
+export const Sidebar: React.FC<SidebarProps> = ({ currentScreen, onNavigate, user }) => {
   const navItems = [
-    { id: 'home', label: 'Home', icon: 'grid_view' },
-    { id: 'goals', label: 'Goals', icon: 'explore' },
-    { id: 'ai-journeys-quests', label: 'AI Journeys / Quests', icon: 'bolt' },
-    { id: 'decision-arena', label: 'Decision Arena', icon: 'balance' },
-    { id: 'squads', label: 'Squads', icon: 'group' },
-    { id: 'profile', label: 'Profile', icon: 'account_circle' },
+    { id: "home", label: "Home", icon: "grid_view" },
+    { id: "goals", label: "Goals", icon: "explore" },
+    { id: "ai-journeys-quests", label: "AI Journeys / Quests", icon: "bolt" },
+    { id: "decision-arena", label: "Decision Arena", icon: "balance" },
+    { id: "squads", label: "Squads", icon: "group" },
+    { id: "profile", label: "Profile", icon: "account_circle" },
   ];
 
   const xpPercent = Math.min(100, Math.round((user.currentXp / user.targetXp) * 100));
@@ -31,7 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Logo */}
         <div
           className="flex items-center gap-space-sm px-space-xs cursor-pointer select-none group"
-          onClick={() => onNavigate('home')}
+          onClick={() => onNavigate("home")}
         >
           <BrandMark compact />
         </div>
@@ -46,8 +42,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => onNavigate(item.id as NavScreen)}
                 className={`flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-all text-left w-full ${
                   isActive
-                    ? 'bg-[#f59e0b] text-[#472a00] font-headline-sm font-semibold shadow-[0px_0px_20px_-4px_rgba(245,158,11,0.35)]'
-                    : 'text-[#a5b0c8] hover:bg-[#262a34] hover:text-[#dfe2ef]'
+                    ? "bg-[#f59e0b] text-[#472a00] font-headline-sm font-semibold shadow-[0px_0px_20px_-4px_rgba(245,158,11,0.35)]"
+                    : "text-[#a5b0c8] hover:bg-[#262a34] hover:text-[#dfe2ef]"
                 }`}
               >
                 <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
@@ -96,7 +92,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* User Card */}
         <div
           className="flex items-center justify-between p-space-sm rounded-lg bg-[#262a34]/60 hover:bg-[#262a34] transition-colors cursor-pointer"
-          onClick={() => onNavigate('profile')}
+          onClick={() => onNavigate("profile")}
         >
           <div className="flex items-center gap-space-sm">
             <img

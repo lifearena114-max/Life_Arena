@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { AskArenaModal } from './components/AskArenaModal';
-import { RecalibrateModal } from './components/RecalibrateModal';
-import { DailyCheckinModal } from './components/DailyCheckinModal';
-import { DashboardView } from './components/DashboardView';
-import { DecisionArenaView } from './components/DecisionArenaView';
-import { Header } from './components/Header';
-import { JourneyBuilderModal } from './components/JourneyBuilderModal';
-import { ProfileView } from './components/ProfileView';
-import { ReflectionModal } from './components/ReflectionModal';
-import { RoadmapView } from './components/RoadmapView';
-import { SearchModal } from './components/SearchModal';
-import { Sidebar } from './components/Sidebar';
-import { SpeedQuestModal } from './components/SpeedQuestModal';
-import { SquadsView } from './components/SquadsView';
+import React, { useEffect, useState } from "react";
+import { AskArenaModal } from "./components/AskArenaModal";
+import { RecalibrateModal } from "./components/RecalibrateModal";
+import { DailyCheckinModal } from "./components/DailyCheckinModal";
+import { DashboardView } from "./components/DashboardView";
+import { DecisionArenaView } from "./components/DecisionArenaView";
+import { Header } from "./components/Header";
+import { JourneyBuilderModal } from "./components/JourneyBuilderModal";
+import { ProfileView } from "./components/ProfileView";
+import { ReflectionModal } from "./components/ReflectionModal";
+import { RoadmapView } from "./components/RoadmapView";
+import { SearchModal } from "./components/SearchModal";
+import { Sidebar } from "./components/Sidebar";
+import { SpeedQuestModal } from "./components/SpeedQuestModal";
+import { SquadsView } from "./components/SquadsView";
 import {
   INITIAL_DECISIONS,
   INITIAL_QUESTS,
   INITIAL_ROADMAP_PHASES,
   INITIAL_SQUAD_ACTIVITY,
   INITIAL_USER,
-} from './data/mockData';
-import { DecisionPoll, NavScreen, Quest, RoadmapPhase, SquadActivity, UserProfile } from './types';
+} from "./data/mockData";
+import { DecisionPoll, NavScreen, Quest, RoadmapPhase, SquadActivity, UserProfile } from "./types";
 
-export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; onNewGoal: () => void }) {
-  const [currentScreen, setCurrentScreen] = useState<NavScreen>('home');
-  const [user, setUser] = useState<UserProfile>(() => ({ ...INITIAL_USER, primaryAnchor: initialGoal || INITIAL_USER.primaryAnchor }));
+export default function App({
+  initialGoal,
+  onNewGoal,
+}: {
+  initialGoal?: string;
+  onNewGoal: () => void;
+}) {
+  const [currentScreen, setCurrentScreen] = useState<NavScreen>("home");
+  const [user, setUser] = useState<UserProfile>(() => ({
+    ...INITIAL_USER,
+    primaryAnchor: initialGoal || INITIAL_USER.primaryAnchor,
+  }));
   const [quests, setQuests] = useState<Quest[]>(INITIAL_QUESTS);
   const [roadmapPhases, setRoadmapPhases] = useState<RoadmapPhase[]>(INITIAL_ROADMAP_PHASES);
   const [polls, setPolls] = useState<DecisionPoll[]>(INITIAL_DECISIONS);
@@ -52,17 +61,17 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
   // Global Keyboard Shortcuts (⌘K for search, ⌘D for daily check-in)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setIsSearchOpen(true);
       }
-      if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "d") {
         e.preventDefault();
         setIsCheckinOpen(true);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Quest toggle handler
@@ -76,7 +85,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
               ...u,
               currentXp: u.currentXp + q.xp,
             }));
-            showToast('Quest Completed! ⚡', `+${q.xp} XP added to your tier progress.`);
+            showToast("Quest Completed! ⚡", `+${q.xp} XP added to your tier progress.`);
           } else {
             setUser((u) => ({
               ...u,
@@ -86,7 +95,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
           return { ...q, completed: nextCompleted };
         }
         return q;
-      })
+      }),
     );
   };
 
@@ -98,17 +107,17 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
           const cheered = !act.userCheered;
           const newCount = cheered ? act.cheersCount + 1 : act.cheersCount - 1;
           if (cheered) {
-            showToast('High-Five Sent! 🙌', `Cheered on ${act.authorName} (+5 Community XP).`);
+            showToast("High-Five Sent! 🙌", `Cheered on ${act.authorName} (+5 Community XP).`);
           }
           return { ...act, userCheered: cheered, cheersCount: newCount };
         }
         return act;
-      })
+      }),
     );
   };
 
   // Vote on Decision Poll
-  const handleVotePoll = (pollId: string, option: 'A' | 'B') => {
+  const handleVotePoll = (pollId: string, option: "A" | "B") => {
     setPolls((prev) =>
       prev.map((p) => {
         if (p.id === pollId) {
@@ -117,17 +126,20 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
           let newVotesA = p.optionA.votes;
           let newVotesB = p.optionB.votes;
 
-          if (p.userVoted === 'A') newVotesA -= 1;
-          if (p.userVoted === 'B') newVotesB -= 1;
+          if (p.userVoted === "A") newVotesA -= 1;
+          if (p.userVoted === "B") newVotesB -= 1;
 
-          if (option === 'A') newVotesA += 1;
-          if (option === 'B') newVotesB += 1;
+          if (option === "A") newVotesA += 1;
+          if (option === "B") newVotesB += 1;
 
           const total = newVotesA + newVotesB;
           const percentA = Math.round((newVotesA / total) * 100);
           const percentB = 100 - percentA;
 
-          showToast('Vote Registered! ⚖️', `Your perspective helped calibrate the collective arena.`);
+          showToast(
+            "Vote Registered! ⚖️",
+            `Your perspective helped calibrate the collective arena.`,
+          );
 
           return {
             ...p,
@@ -138,7 +150,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
           };
         }
         return p;
-      })
+      }),
     );
   };
 
@@ -150,16 +162,16 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
           return { ...q, reflectionSaved: text, completed: true };
         }
         return q;
-      })
+      }),
     );
     setUser((u) => ({ ...u, currentXp: u.currentXp + 25 }));
-    showToast('Reflection Logged! 🧠', '+25 XP earned. Mental model updated.');
+    showToast("Reflection Logged! 🧠", "+25 XP earned. Mental model updated.");
   };
 
   // Speed quest finish
   const handleCompleteSpeedQuest = (xp: number) => {
     setUser((u) => ({ ...u, currentXp: u.currentXp + xp }));
-    showToast('Speed Drill Crushed! ⚡', `+${xp} XP awarded to your velocity multiplier.`);
+    showToast("Speed Drill Crushed! ⚡", `+${xp} XP awarded to your velocity multiplier.`);
   };
 
   // Daily Checkin confirm
@@ -170,7 +182,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
       currentXp: u.currentXp + 25,
       weeklyStreak: [true, true, true, true, true, true, false],
     }));
-    showToast('Day Checked In! 🔥', `Streak boosted to ${user.streakDays + 1} days (+25 XP).`);
+    showToast("Day Checked In! 🔥", `Streak boosted to ${user.streakDays + 1} days (+25 XP).`);
   };
 
   // Journey Created via Wizard
@@ -178,12 +190,12 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
     setUser((u) => ({
       ...u,
       primaryAnchor: title,
-      primaryAnchorPhase: 'Core Foundations & Architecture',
+      primaryAnchorPhase: "Core Foundations & Architecture",
       primaryAnchorProgress: 10,
       currentXp: u.currentXp + 50,
     }));
-    showToast('New AI Journey Initialized! 🚀', `Roadmap for "${title}" synthesized (+50 XP).`);
-    setCurrentScreen('ai-journeys-quests');
+    showToast("New AI Journey Initialized! 🚀", `Roadmap for "${title}" synthesized (+50 XP).`);
+    setCurrentScreen("ai-journeys-quests");
   };
 
   // Reset Demo state
@@ -193,7 +205,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
     setRoadmapPhases(INITIAL_ROADMAP_PHASES);
     setPolls(INITIAL_DECISIONS);
     setSquadActivities(INITIAL_SQUAD_ACTIVITY);
-    showToast('Demo State Reset', 'Sandbox refreshed to pristine mock state.');
+    showToast("Demo State Reset", "Sandbox refreshed to pristine mock state.");
   };
 
   return (
@@ -203,7 +215,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
         currentScreen={currentScreen}
         onNavigate={(screen) => setCurrentScreen(screen)}
         user={user}
-         onOpenNewGoal={onNewGoal}
+        onOpenNewGoal={onNewGoal}
       />
 
       {/* Main Container Offset by Sidebar */}
@@ -212,13 +224,13 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
         <Header
           user={user}
           onOpenSearch={() => setIsSearchOpen(true)}
-           onOpenNewGoal={onNewGoal}
-          onNavigateProfile={() => setCurrentScreen('profile')}
+          onOpenNewGoal={onNewGoal}
+          onNavigateProfile={() => setCurrentScreen("profile")}
         />
 
         {/* Content Area offset by Header Height */}
         <main className="mt-16 pb-16 flex-1 flex flex-col">
-          {currentScreen === 'home' && (
+          {currentScreen === "home" && (
             <DashboardView
               user={user}
               quests={quests}
@@ -233,22 +245,22 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
             />
           )}
 
-          {(currentScreen === 'goals' || currentScreen === 'ai-journeys-quests') && (
+          {(currentScreen === "goals" || currentScreen === "ai-journeys-quests") && (
             <RoadmapView
               user={user}
               phases={roadmapPhases}
               onNavigate={setCurrentScreen}
               onClaimMilestone={(phaseId) => {
-                showToast('Milestone Claimed!', `Phase bonus awarded (+300 XP).`);
+                showToast("Milestone Claimed!", `Phase bonus awarded (+300 XP).`);
               }}
               onStartQuest={(questTitle) => {
-                showToast('Quest Resumed ⚡', `Active drill: ${questTitle}`);
-                setCurrentScreen('home');
+                showToast("Quest Resumed ⚡", `Active drill: ${questTitle}`);
+                setCurrentScreen("home");
               }}
             />
           )}
 
-          {currentScreen === 'decision-arena' && (
+          {currentScreen === "decision-arena" && (
             <DecisionArenaView
               user={user}
               polls={polls}
@@ -257,7 +269,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
             />
           )}
 
-          {currentScreen === 'squads' && (
+          {currentScreen === "squads" && (
             <SquadsView
               user={user}
               squadActivities={squadActivities}
@@ -265,7 +277,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
             />
           )}
 
-          {currentScreen === 'profile' && (
+          {currentScreen === "profile" && (
             <ProfileView
               user={user}
               onUpdateUser={(updated) => setUser((u) => ({ ...u, ...updated }))}
@@ -283,7 +295,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
         phases={roadmapPhases}
         polls={polls}
         onSelectQuest={(q) => {
-          setCurrentScreen('home');
+          setCurrentScreen("home");
         }}
         onNavigate={(screen) => setCurrentScreen(screen)}
       />
@@ -314,8 +326,8 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
         user={user}
         onSubmitDilemma={(newPoll) => {
           setPolls([newPoll, ...polls]);
-          showToast('Dilemma Published! ⚖️', 'Community and Bayesian model are analyzing options.');
-          setCurrentScreen('decision-arena');
+          showToast("Dilemma Published! ⚖️", "Community and Bayesian model are analyzing options.");
+          setCurrentScreen("decision-arena");
         }}
       />
 
@@ -333,7 +345,7 @@ export default function App({ initialGoal, onNewGoal }: { initialGoal?: string; 
         phases={roadmapPhases}
         onApply={(q) => {
           setQuests((prev) => [q, ...prev]);
-          showToast('Journey updated 🧭', `Added: ${q.title}`);
+          showToast("Journey updated 🧭", `Added: ${q.title}`);
         }}
       />
 

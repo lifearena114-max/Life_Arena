@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { NavScreen, Quest, SquadActivity, UserProfile } from '../types';
+import React, { useEffect, useState } from "react";
+import { NavScreen, Quest, SquadActivity, UserProfile } from "../types";
 
 interface DashboardViewProps {
   user: UserProfile;
@@ -45,18 +45,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const formatTimer = (sec: number) => {
     const m = Math.floor(sec / 60);
     const s = sec % 60;
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
   // Preview Poll state in Decision Arena widget
-  const [votedOption, setVotedOption] = useState<'A' | 'B' | null>(null);
+  const [votedOption, setVotedOption] = useState<"A" | "B" | null>(null);
   const [previewVotesA, setPreviewVotesA] = useState(58);
   const [previewVotesB, setPreviewVotesB] = useState(42);
 
-  const handleVotePreview = (opt: 'A' | 'B') => {
+  const handleVotePreview = (opt: "A" | "B") => {
     if (votedOption === opt) return;
     setVotedOption(opt);
-    if (opt === 'A') {
+    if (opt === "A") {
       setPreviewVotesA(60);
       setPreviewVotesB(40);
     } else {
@@ -85,15 +85,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span className="text-[#a5b0c8] font-label-md text-label-md">Q3 Sprint</span>
               </div>
               <h1 className="font-headline-xl text-headline-xl text-[#dfe2ef] tracking-tight">
-                Good morning, {user.name}{' '}
+                Good morning, {user.name}{" "}
                 <span className="inline-block transform hover:rotate-12 transition-transform duration-300">
                   ⚡
                 </span>
               </h1>
               <p className="font-body-lg text-body-lg text-[#a5b0c8]">
-                Ready for today&apos;s quests? You&apos;re on an unbroken{' '}
-                <span className="text-[#ffc174] font-semibold">{user.streakDays}-day roll</span>. You
-                have 3 high-yield objectives queued.
+                Ready for today&apos;s quests? You&apos;re on an unbroken{" "}
+                <span className="text-[#ffc174] font-semibold">{user.streakDays}-day roll</span>.
+                You have 3 high-yield objectives queued.
               </p>
             </div>
 
@@ -150,7 +150,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <div className="mt-space-lg flex flex-col gap-space-xs">
               <div className="flex justify-between items-center font-label-md text-label-md">
                 <span className="text-[#dfe2ef] font-semibold">
-                  {user.currentXp.toLocaleString()}{' '}
+                  {user.currentXp.toLocaleString()}{" "}
                   <span className="text-[#a5b0c8] font-normal">
                     / {user.targetXp.toLocaleString()} XP
                   </span>
@@ -168,9 +168,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 </div>
               </div>
               <div className="flex justify-between text-[11px] font-label-sm text-[#a5b0c8] mt-1">
-                <span>
-                  Progress: {((user.currentXp / user.targetXp) * 100).toFixed(1)}%
-                </span>
+                <span>Progress: {((user.currentXp / user.targetXp) * 100).toFixed(1)}%</span>
                 <span>Est. Promotion: 2 Days</span>
               </div>
             </div>
@@ -207,14 +205,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               {/* 7-Day Grid */}
               <div className="grid grid-cols-7 gap-2">
-                {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, idx) => {
+                {["M", "T", "W", "T", "F", "S", "S"].map((day, idx) => {
                   const isPastChecked = idx < 4;
                   const isToday = idx === 4; // Friday in mockup
                   return (
                     <div key={idx} className="flex flex-col items-center gap-1">
                       <span
                         className={`text-[10px] font-label-sm ${
-                          isToday ? 'text-[#ffc174] font-bold' : 'text-[#a5b0c8]'
+                          isToday ? "text-[#ffc174] font-bold" : "text-[#a5b0c8]"
                         }`}
                       >
                         {day}
@@ -241,7 +239,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           {/* Card 3: Active Focus Goal */}
           <div
-            onClick={() => onNavigate('ai-journeys-quests')}
+            onClick={() => onNavigate("ai-journeys-quests")}
             className="relative overflow-hidden rounded-xl bg-[#1c1f29] p-space-lg flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.5)] border border-[#262a34]/40 group hover:bg-[#262a34]/80 transition-all cursor-pointer"
           >
             <div className="flex items-start justify-between">
@@ -266,10 +264,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <div className="mt-space-lg flex flex-col gap-space-xs">
               <div className="flex justify-between items-baseline font-label-md text-label-md">
                 <span className="text-[#dfe2ef] truncate">
-                  Next:{' '}
-                  <strong className="text-[#ffc174] font-medium">
-                    {user.primaryAnchorPhase}
-                  </strong>
+                  Next:{" "}
+                  <strong className="text-[#ffc174] font-medium">{user.primaryAnchorPhase}</strong>
                 </span>
                 <span className="text-[#c0c1ff] font-stat-counter text-[16px] flex-shrink-0">
                   {user.primaryAnchorProgress}%
@@ -286,7 +282,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <div className="flex justify-between text-[11px] font-label-sm text-[#a5b0c8] mt-1">
                 <span>Milestone 04 of 09</span>
                 <span className="text-[#c0c1ff] flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
-                  Focus Phase <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+                  Focus Phase{" "}
+                  <span className="material-symbols-outlined text-[12px]">chevron_right</span>
                 </span>
               </div>
             </div>
@@ -325,11 +322,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="group relative flex items-center justify-between p-space-md rounded-lg bg-[#181b25] border border-[#262a34]/50 transition-all">
                   <div className="flex items-center gap-space-md min-w-0">
                     <button
-                      onClick={() => onToggleQuest('q1')}
+                      onClick={() => onToggleQuest("q1")}
                       className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 cursor-pointer transition-all ${
                         quests[0]?.completed
-                          ? 'bg-[#56e5a9] text-[#003824]'
-                          : 'bg-[#0a0e17] text-transparent hover:text-[#56e5a9]'
+                          ? "bg-[#56e5a9] text-[#003824]"
+                          : "bg-[#0a0e17] text-transparent hover:text-[#56e5a9]"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[18px]">check</span>
@@ -339,18 +336,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         <span
                           className={`font-label-lg text-label-lg truncate ${
                             quests[0]?.completed
-                              ? 'line-through text-[#a5b0c8]/60'
-                              : 'text-[#dfe2ef]'
+                              ? "line-through text-[#a5b0c8]/60"
+                              : "text-[#dfe2ef]"
                           }`}
                         >
-                          {quests[0]?.title || 'Complete JavaScript lesson'}
+                          {quests[0]?.title || "Complete JavaScript lesson"}
                         </span>
                         <span className="px-2 py-0.5 rounded bg-[#30c88f]/20 text-[#56e5a9] font-label-sm text-[10px]">
                           Coding
                         </span>
                       </div>
                       <span className="font-body-sm text-[12px] text-[#a5b0c8]/50">
-                        {quests[0]?.scope || 'Core Scope: Array methods & reduce patterns'}
+                        {quests[0]?.scope || "Core Scope: Array methods & reduce patterns"}
                       </span>
                     </div>
                   </div>
@@ -365,17 +362,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 {/* Quest 2 (Active / In-Progress with Live Timer) */}
                 <div
                   className={`relative overflow-hidden flex flex-col p-space-md rounded-lg bg-[#262a34] shadow-md border border-[#31353f] transition-all ${
-                    quests[1]?.completed ? 'opacity-80' : ''
+                    quests[1]?.completed ? "opacity-80" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between mb-space-sm">
                     <div className="flex items-center gap-space-md min-w-0">
                       <button
-                        onClick={() => onToggleQuest('q2')}
+                        onClick={() => onToggleQuest("q2")}
                         className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${
                           quests[1]?.completed
-                            ? 'bg-[#56e5a9] text-[#003824]'
-                            : 'bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]'
+                            ? "bg-[#56e5a9] text-[#003824]"
+                            : "bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]"
                         }`}
                       >
                         <span className="material-symbols-outlined text-[18px]">check</span>
@@ -384,10 +381,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         <div className="flex items-center gap-2">
                           <span
                             className={`font-headline-sm text-headline-sm truncate ${
-                              quests[1]?.completed ? 'line-through text-[#a5b0c8]' : 'text-[#dfe2ef]'
+                              quests[1]?.completed
+                                ? "line-through text-[#a5b0c8]"
+                                : "text-[#dfe2ef]"
                             }`}
                           >
-                            {quests[1]?.title || 'Practice coding for 30 minutes'}
+                            {quests[1]?.title || "Practice coding for 30 minutes"}
                           </span>
                           <span className="px-2 py-0.5 rounded bg-[#30c88f]/20 text-[#56e5a9] font-label-sm text-[10px]">
                             Coding
@@ -397,7 +396,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           )}
                         </div>
                         <span className="font-body-sm text-[12px] text-[#a5b0c8]">
-                          {quests[1]?.scope || 'Focus: Algorithm optimization & LeetCode challenges'}
+                          {quests[1]?.scope ||
+                            "Focus: Algorithm optimization & LeetCode challenges"}
                         </span>
                       </div>
                     </div>
@@ -425,19 +425,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         className="flex items-center gap-1 px-3 py-1 rounded bg-[#f59e0b] hover:bg-[#ffc174] text-[#472a00] font-label-md text-label-md transition-all cursor-pointer font-semibold"
                       >
                         <span className="material-symbols-outlined text-[16px]">
-                          {timerRunning ? 'pause' : 'play_arrow'}
+                          {timerRunning ? "pause" : "play_arrow"}
                         </span>
-                        <span>{timerRunning ? 'Pause' : 'Resume'}</span>
+                        <span>{timerRunning ? "Pause" : "Resume"}</span>
                       </button>
                       <button
-                        onClick={() => onToggleQuest('q2')}
+                        onClick={() => onToggleQuest("q2")}
                         className={`px-2.5 py-1 rounded font-label-md text-label-md transition-all cursor-pointer ${
                           quests[1]?.completed
-                            ? 'bg-[#56e5a9]/20 text-[#56e5a9]'
-                            : 'bg-[#1c1f29] hover:bg-[#353943] text-[#a5b0c8]'
+                            ? "bg-[#56e5a9]/20 text-[#56e5a9]"
+                            : "bg-[#1c1f29] hover:bg-[#353943] text-[#a5b0c8]"
                         }`}
                       >
-                        {quests[1]?.completed ? 'Completed' : 'Mark Done'}
+                        {quests[1]?.completed ? "Completed" : "Mark Done"}
                       </button>
                     </div>
                   </div>
@@ -447,11 +447,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="group flex items-center justify-between p-space-md rounded-lg bg-[#181b25] hover:bg-[#262a34] border border-[#262a34]/50 transition-all">
                   <div className="flex items-center gap-space-md min-w-0">
                     <button
-                      onClick={() => onToggleQuest('q3')}
+                      onClick={() => onToggleQuest("q3")}
                       className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${
                         quests[2]?.completed
-                          ? 'bg-[#56e5a9] text-[#003824]'
-                          : 'bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]'
+                          ? "bg-[#56e5a9] text-[#003824]"
+                          : "bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[18px]">check</span>
@@ -460,7 +460,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       <div className="flex items-center gap-2">
                         <span
                           className={`font-label-lg text-label-lg truncate ${
-                            quests[2]?.completed ? 'line-through text-[#a5b0c8]' : 'text-[#dfe2ef]'
+                            quests[2]?.completed ? "line-through text-[#a5b0c8]" : "text-[#dfe2ef]"
                           }`}
                         >
                           {quests[2]?.title || "Write today's reflection"}
@@ -479,10 +479,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <div className="flex items-center gap-space-sm flex-shrink-0 ml-space-md">
                     <span className="font-stat-counter text-[14px] text-[#a5b0c8]">+25 XP</span>
                     <button
-                      onClick={() => { const quest = quests[2]; if (quest) onOpenReflection(quest); }}
+                      onClick={() => {
+                        const quest = quests[2];
+                        if (quest) onOpenReflection(quest);
+                      }}
                       className="flex items-center gap-1 px-3 py-1 rounded bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef] font-label-md text-label-md transition-all cursor-pointer border border-[#31353f]"
                     >
-                      <span>{quests[2]?.reflectionSaved ? 'Edit Note' : 'Open Prompt'}</span>
+                      <span>{quests[2]?.reflectionSaved ? "Edit Note" : "Open Prompt"}</span>
                       <span className="material-symbols-outlined text-[14px]">edit_note</span>
                     </button>
                   </div>
@@ -492,11 +495,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="group flex items-center justify-between p-space-md rounded-lg bg-[#181b25] hover:bg-[#262a34] border border-[#262a34]/50 transition-all">
                   <div className="flex items-center gap-space-md min-w-0">
                     <button
-                      onClick={() => onToggleQuest('q4')}
+                      onClick={() => onToggleQuest("q4")}
                       className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${
                         quests[3]?.completed
-                          ? 'bg-[#56e5a9] text-[#003824]'
-                          : 'bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]'
+                          ? "bg-[#56e5a9] text-[#003824]"
+                          : "bg-[#0a0e17] text-transparent hover:text-[#56e5a9] border border-[#31353f]"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[18px]">check</span>
@@ -505,10 +508,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       <div className="flex items-center gap-2">
                         <span
                           className={`font-label-lg text-label-lg truncate ${
-                            quests[3]?.completed ? 'line-through text-[#a5b0c8]' : 'text-[#dfe2ef]'
+                            quests[3]?.completed ? "line-through text-[#a5b0c8]" : "text-[#dfe2ef]"
                           }`}
                         >
-                          {quests[3]?.title || 'Hydration & Posture check'}
+                          {quests[3]?.title || "Hydration & Posture check"}
                         </span>
                         <span className="px-2 py-0.5 rounded bg-[#30c88f]/20 text-[#56e5a9] font-label-sm text-[10px]">
                           Health
@@ -516,19 +519,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       </div>
                       <span className="font-body-sm text-[12px] text-[#a5b0c8]">
                         {quests[3]?.scope ||
-                          'Target: Drink 500ml water + 2min shoulder decompression'}
+                          "Target: Drink 500ml water + 2min shoulder decompression"}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-space-sm flex-shrink-0 ml-space-md">
                     <span className="font-stat-counter text-[14px] text-[#a5b0c8]">+15 XP</span>
                     <button
-                      onClick={() => onToggleQuest('q4')}
+                      onClick={() => onToggleQuest("q4")}
                       aria-label="Mark Quest Done"
                       className={`w-8 h-8 rounded flex items-center justify-center transition-all cursor-pointer ${
                         quests[3]?.completed
-                          ? 'bg-[#56e5a9] text-[#003824]'
-                          : 'bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]'
+                          ? "bg-[#56e5a9] text-[#003824]"
+                          : "bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[18px]">done_all</span>
@@ -556,7 +559,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </h3>
                 </div>
                 <button
-                  onClick={() => onNavigate('ai-journeys-quests')}
+                  onClick={() => onNavigate("ai-journeys-quests")}
                   className="self-start md:self-auto flex items-center gap-1.5 px-space-md py-space-sm rounded-lg bg-[#262a34] hover:bg-[#353943] text-[#ffc174] font-label-lg text-label-lg transition-all cursor-pointer border border-[#31353f]"
                 >
                   <span>Continue Journey</span>
@@ -595,7 +598,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                   {/* Milestone 3 (Current Active) */}
                   <div
-                    onClick={() => onNavigate('ai-journeys-quests')}
+                    onClick={() => onNavigate("ai-journeys-quests")}
                     className="flex flex-col items-center text-center gap-space-xs cursor-pointer group"
                   >
                     <div className="w-10 h-10 rounded-full bg-[#f59e0b] text-[#472a00] flex items-center justify-center font-bold text-sm shadow-[0_0_20px_rgba(245,158,11,0.5)] animate-pulse group-hover:scale-110 transition-transform">
@@ -638,7 +641,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </div>
                 </div>
                 <button
-                  onClick={() => onNavigate('ai-journeys-quests')}
+                  onClick={() => onNavigate("ai-journeys-quests")}
                   className="px-3 py-1.5 rounded bg-[#ffc174] text-[#472a00] font-label-md text-label-md hover:bg-[#ffb95f] transition-all cursor-pointer font-bold"
                 >
                   Resume 8m
@@ -685,9 +688,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="flex flex-col gap-space-xs mt-space-xs">
                   {/* Option A */}
                   <div
-                    onClick={() => handleVotePreview('A')}
+                    onClick={() => handleVotePreview("A")}
                     className={`relative overflow-hidden rounded-lg bg-[#262a34] p-space-sm flex items-center justify-between cursor-pointer hover:bg-[#353943] transition-all border ${
-                      votedOption === 'A' ? 'border-[#c0c1ff]' : 'border-transparent'
+                      votedOption === "A" ? "border-[#c0c1ff]" : "border-transparent"
                     }`}
                   >
                     <div
@@ -696,7 +699,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     />
                     <div className="relative z-10 flex items-center gap-2">
                       <span className="w-4 h-4 rounded-full border-2 border-[#c0c1ff] flex items-center justify-center">
-                        {votedOption === 'A' && (
+                        {votedOption === "A" && (
                           <span className="w-2 h-2 rounded-full bg-[#c0c1ff]" />
                         )}
                       </span>
@@ -711,9 +714,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                   {/* Option B */}
                   <div
-                    onClick={() => handleVotePreview('B')}
+                    onClick={() => handleVotePreview("B")}
                     className={`relative overflow-hidden rounded-lg bg-[#262a34] p-space-sm flex items-center justify-between cursor-pointer hover:bg-[#353943] transition-all border ${
-                      votedOption === 'B' ? 'border-[#c0c1ff]' : 'border-transparent'
+                      votedOption === "B" ? "border-[#c0c1ff]" : "border-transparent"
                     }`}
                   >
                     <div
@@ -722,7 +725,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     />
                     <div className="relative z-10 flex items-center gap-2">
                       <span className="w-4 h-4 rounded-full border border-[#a5b0c8]/40 flex items-center justify-center">
-                        {votedOption === 'B' && (
+                        {votedOption === "B" && (
                           <span className="w-2 h-2 rounded-full bg-[#c0c1ff]" />
                         )}
                       </span>
@@ -742,15 +745,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     auto_awesome
                   </span>
                   <p className="font-body-sm text-[12px] text-[#dfe2ef] leading-relaxed">
-                    <strong className="text-[#c0c1ff] font-semibold">AI Synthesis:</strong> Deepening
-                    pure React component lifecycles yields a 30% faster mental model before
-                    handling Next.js server components and hydration boundaries.
+                    <strong className="text-[#c0c1ff] font-semibold">AI Synthesis:</strong>{" "}
+                    Deepening pure React component lifecycles yields a 30% faster mental model
+                    before handling Next.js server components and hydration boundaries.
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between pt-space-xs mt-space-xs">
                   <button
-                    onClick={() => onNavigate('decision-arena')}
+                    onClick={() => onNavigate("decision-arena")}
                     className="px-space-md py-1.5 rounded-lg bg-[#f59e0b] hover:bg-[#ffc174] text-[#472a00] font-label-md text-label-md transition-all cursor-pointer font-bold"
                   >
                     Cast Your Vote
@@ -776,7 +779,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </span>
                 </div>
                 <button
-                  onClick={() => onNavigate('squads')}
+                  onClick={() => onNavigate("squads")}
                   className="text-[#ffc174] font-label-md text-label-md hover:underline cursor-pointer"
                 >
                   View Squad (12)
@@ -821,8 +824,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       onClick={() => onCheerSquad(act.id)}
                       className={`px-2.5 py-1 rounded text-[12px] font-label-sm flex items-center gap-1 transition-all flex-shrink-0 cursor-pointer ${
                         act.userCheered
-                          ? 'bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]'
-                          : 'bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]'
+                          ? "bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]"
+                          : "bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]"
                       }`}
                     >
                       <span>🙌</span>

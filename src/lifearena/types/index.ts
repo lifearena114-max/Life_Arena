@@ -1,10 +1,11 @@
-export type NavScreen = 'home' | 'goals' | 'ai-journeys-quests' | 'decision-arena' | 'squads' | 'profile';
+export type NavScreen =
+  "home" | "goals" | "ai-journeys-quests" | "decision-arena" | "squads" | "profile";
 
 export interface Quest {
   id: string;
   title: string;
   tag: string;
-  tagType: 'coding' | 'mindset' | 'health' | 'career';
+  tagType: "coding" | "mindset" | "health" | "career";
   scope: string;
   xp: number;
   completed: boolean;
@@ -21,7 +22,7 @@ export interface RoadmapPhase {
   id: string;
   phaseNumber: string;
   title: string;
-  status: 'completed' | 'active' | 'upcoming' | 'locked';
+  status: "completed" | "active" | "upcoming" | "locked";
   statusLabel: string;
   progressPercent?: number;
   items: {
@@ -50,11 +51,11 @@ export interface DecisionPoll {
     badge?: string;
     online?: boolean;
   };
-  category: 'career' | 'tech' | 'lifestyle' | 'money' | 'mine';
+  category: "career" | "tech" | "lifestyle" | "money" | "mine";
   question: string;
   description: string;
   totalVotes: number;
-  userVoted?: 'A' | 'B';
+  userVoted?: "A" | "B";
   optionA: {
     text: string;
     subtext: string;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { ASSETS } from '../data/mockData';
-import { SquadActivity, UserProfile } from '../types';
+import React from "react";
+import { ASSETS } from "../data/mockData";
+import { SquadActivity, UserProfile } from "../types";
 
 interface SquadsViewProps {
   user: UserProfile;
@@ -8,16 +8,48 @@ interface SquadsViewProps {
   onCheerSquad: (activityId: string) => void;
 }
 
-export const SquadsView: React.FC<SquadsViewProps> = ({
-  squadActivities,
-  onCheerSquad,
-}) => {
+export const SquadsView: React.FC<SquadsViewProps> = ({ squadActivities, onCheerSquad }) => {
   const squadMembers = [
-    { name: 'Maya S.', role: 'Senior Frontend', level: 8, streak: 15, avatar: ASSETS.avatarMaya, online: true },
-    { name: 'Devon K.', role: 'Backend Lead', level: 9, streak: 22, avatar: ASSETS.avatarDevon, online: true },
-    { name: 'Sarah L.', role: 'AI Architect', level: 9, streak: 19, avatar: ASSETS.avatarSarah, online: false },
-    { name: 'Elena Rostova', role: 'Full-Stack Dev', level: 7, streak: 11, avatar: ASSETS.avatarElena, online: true },
-    { name: 'Marcus Vance', role: 'Indie Hacker', level: 6, streak: 8, avatar: ASSETS.avatarMarcus, online: false },
+    {
+      name: "Maya S.",
+      role: "Senior Frontend",
+      level: 8,
+      streak: 15,
+      avatar: ASSETS.avatarMaya,
+      online: true,
+    },
+    {
+      name: "Devon K.",
+      role: "Backend Lead",
+      level: 9,
+      streak: 22,
+      avatar: ASSETS.avatarDevon,
+      online: true,
+    },
+    {
+      name: "Sarah L.",
+      role: "AI Architect",
+      level: 9,
+      streak: 19,
+      avatar: ASSETS.avatarSarah,
+      online: false,
+    },
+    {
+      name: "Elena Rostova",
+      role: "Full-Stack Dev",
+      level: 7,
+      streak: 11,
+      avatar: ASSETS.avatarElena,
+      online: true,
+    },
+    {
+      name: "Marcus Vance",
+      role: "Indie Hacker",
+      level: 6,
+      streak: 8,
+      avatar: ASSETS.avatarMarcus,
+      online: false,
+    },
   ];
 
   return (
@@ -30,7 +62,9 @@ export const SquadsView: React.FC<SquadsViewProps> = ({
               <span className="px-2.5 py-0.5 rounded-full bg-[#30c88f]/20 text-[#56e5a9] font-label-sm text-label-sm border border-[#30c88f]/30">
                 Cohort #14 • High Velocity
               </span>
-              <span className="text-[#a5b0c8] font-label-sm text-label-sm">• 12 Active Members</span>
+              <span className="text-[#a5b0c8] font-label-sm text-label-sm">
+                • 12 Active Members
+              </span>
             </div>
             <h1 className="font-headline-xl text-headline-xl text-[#dfe2ef]">Squad Velocity</h1>
             <p className="font-body-md text-body-md text-[#a5b0c8]">
@@ -67,7 +101,7 @@ export const SquadsView: React.FC<SquadsViewProps> = ({
           <div className="w-full h-2.5 bg-[#0a0e17] rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-[#f59e0b] to-[#56e5a9] rounded-full"
-              style={{ width: '78%' }}
+              style={{ width: "78%" }}
             />
           </div>
           <div className="flex justify-between text-[11px] text-[#a5b0c8]">
@@ -80,7 +114,9 @@ export const SquadsView: React.FC<SquadsViewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
           {/* Squad Live Feed (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-space-md">
-            <h2 className="font-headline-lg text-headline-lg text-[#dfe2ef]">Live Cohort Activity</h2>
+            <h2 className="font-headline-lg text-headline-lg text-[#dfe2ef]">
+              Live Cohort Activity
+            </h2>
 
             <div className="flex flex-col gap-space-sm">
               {squadActivities.map((act) => (
@@ -120,8 +156,8 @@ export const SquadsView: React.FC<SquadsViewProps> = ({
                     onClick={() => onCheerSquad(act.id)}
                     className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer flex-shrink-0 ${
                       act.userCheered
-                        ? 'bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]'
-                        : 'bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]'
+                        ? "bg-[#f59e0b] text-[#472a00] font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]"
+                        : "bg-[#262a34] hover:bg-[#353943] text-[#dfe2ef]"
                     }`}
                   >
                     <span>🙌</span>

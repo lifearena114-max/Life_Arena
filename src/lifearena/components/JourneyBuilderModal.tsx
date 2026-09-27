@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 interface JourneyBuilderModalProps {
   isOpen: boolean;
@@ -7,15 +7,55 @@ interface JourneyBuilderModalProps {
 }
 
 const DOMAINS = [
-  { id: 'coding', title: 'Coding & Technology', icon: 'code', desc: 'Software, web dev, algorithms' },
-  { id: 'career', title: 'Career Acceleration', icon: 'trending_up', desc: 'Promotion, leadership, transitions' },
-  { id: 'learning', title: 'Learning & Mastery', icon: 'school', desc: 'New skills, books, languages' },
-  { id: 'fitness', title: 'Fitness & Physical', icon: 'fitness_center', desc: 'Strength, endurance, running' },
-  { id: 'health', title: 'Health & Vitality', icon: 'favorite', desc: 'Nutrition, sleep, longevity' },
-  { id: 'money', title: 'Money & Wealth', icon: 'payments', desc: 'Investing, budgeting, income' },
-  { id: 'productivity', title: 'Productivity & Focus', icon: 'timer', desc: 'Systems, habits, deep work' },
-  { id: 'confidence', title: 'Confidence & Voice', icon: 'record_voice_over', desc: 'Public speaking, leadership' },
-  { id: 'mindset', title: 'Mindset & Growth', icon: 'psychology', desc: 'Resilience, emotional agility' },
+  {
+    id: "coding",
+    title: "Coding & Technology",
+    icon: "code",
+    desc: "Software, web dev, algorithms",
+  },
+  {
+    id: "career",
+    title: "Career Acceleration",
+    icon: "trending_up",
+    desc: "Promotion, leadership, transitions",
+  },
+  {
+    id: "learning",
+    title: "Learning & Mastery",
+    icon: "school",
+    desc: "New skills, books, languages",
+  },
+  {
+    id: "fitness",
+    title: "Fitness & Physical",
+    icon: "fitness_center",
+    desc: "Strength, endurance, running",
+  },
+  {
+    id: "health",
+    title: "Health & Vitality",
+    icon: "favorite",
+    desc: "Nutrition, sleep, longevity",
+  },
+  { id: "money", title: "Money & Wealth", icon: "payments", desc: "Investing, budgeting, income" },
+  {
+    id: "productivity",
+    title: "Productivity & Focus",
+    icon: "timer",
+    desc: "Systems, habits, deep work",
+  },
+  {
+    id: "confidence",
+    title: "Confidence & Voice",
+    icon: "record_voice_over",
+    desc: "Public speaking, leadership",
+  },
+  {
+    id: "mindset",
+    title: "Mindset & Growth",
+    icon: "psychology",
+    desc: "Resilience, emotional agility",
+  },
 ];
 
 export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
@@ -24,10 +64,10 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
   onJourneyCreated,
 }) => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [selectedDomain, setSelectedDomain] = useState('coding');
-  const [goalTitle, setGoalTitle] = useState('Become a full-stack developer');
-  const [timeline, setTimeline] = useState('3 months');
-  const [dailyCommitment, setDailyCommitment] = useState('1 Hr / Day');
+  const [selectedDomain, setSelectedDomain] = useState("coding");
+  const [goalTitle, setGoalTitle] = useState("Become a full-stack developer");
+  const [timeline, setTimeline] = useState("3 months");
+  const [dailyCommitment, setDailyCommitment] = useState("1 Hr / Day");
   const [progressPercent, setProgressPercent] = useState(15);
   const [checkpointsDone, setCheckpointsDone] = useState<number>(0);
 
@@ -111,23 +151,21 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
                     onClick={() => setSelectedDomain(dom.id)}
                     className={`p-space-md rounded-xl border flex flex-col gap-space-xs cursor-pointer transition-all ${
                       isSelected
-                        ? 'bg-[#262a34] border-[#f59e0b] ring-1 ring-[#f59e0b] shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-                        : 'bg-[#1c1f29] border-[#262a34]/60 hover:border-[#353943] hover:bg-[#262a34]/50'
+                        ? "bg-[#262a34] border-[#f59e0b] ring-1 ring-[#f59e0b] shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                        : "bg-[#1c1f29] border-[#262a34]/60 hover:border-[#353943] hover:bg-[#262a34]/50"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span
                         className={`material-symbols-outlined text-[22px] ${
-                          isSelected ? 'text-[#ffc174]' : 'text-[#a5b0c8]'
+                          isSelected ? "text-[#ffc174]" : "text-[#a5b0c8]"
                         }`}
                       >
                         {dom.icon}
                       </span>
                       <span
                         className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                          isSelected
-                            ? 'border-[#f59e0b] bg-[#f59e0b]'
-                            : 'border-[#a5b0c8]/40'
+                          isSelected ? "border-[#f59e0b] bg-[#f59e0b]" : "border-[#a5b0c8]/40"
                         }`}
                       >
                         {isSelected && (
@@ -166,15 +204,15 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
                 Target Timeline
               </label>
               <div className="grid grid-cols-5 gap-2">
-                {['30 days', '3 months', '6 months', '1 year', 'No deadline'].map((t) => (
+                {["30 days", "3 months", "6 months", "1 year", "No deadline"].map((t) => (
                   <button
                     key={t}
                     type="button"
                     onClick={() => setTimeline(t)}
                     className={`py-2 px-1 text-[12px] font-label-md rounded-lg border transition-all cursor-pointer ${
                       timeline === t
-                        ? 'bg-[#f59e0b] text-[#472a00] font-bold border-[#f59e0b]'
-                        : 'bg-[#1c1f29] text-[#a5b0c8] border-[#262a34] hover:bg-[#262a34]'
+                        ? "bg-[#f59e0b] text-[#472a00] font-bold border-[#f59e0b]"
+                        : "bg-[#1c1f29] text-[#a5b0c8] border-[#262a34] hover:bg-[#262a34]"
                     }`}
                   >
                     {t}
@@ -207,20 +245,21 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
                 How much daily focus can you invest?
               </h2>
               <p className="font-body-md text-body-md text-[#a5b0c8]">
-                We will balance quest increments to prevent burnout and ensure steady compound gains.
+                We will balance quest increments to prevent burnout and ensure steady compound
+                gains.
               </p>
             </div>
 
             {/* Daily Commitment options */}
             <div className="grid grid-cols-3 gap-space-md">
-              {['30 Mins / Day', '1 Hr / Day', '2+ Hrs / Day'].map((c) => (
+              {["30 Mins / Day", "1 Hr / Day", "2+ Hrs / Day"].map((c) => (
                 <div
                   key={c}
                   onClick={() => setDailyCommitment(c)}
                   className={`p-space-lg rounded-xl border flex flex-col items-center justify-center gap-2 cursor-pointer transition-all ${
                     dailyCommitment === c
-                      ? 'bg-[#262a34] border-[#f59e0b] ring-1 ring-[#f59e0b] shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-                      : 'bg-[#1c1f29] border-[#262a34] hover:bg-[#262a34]/60'
+                      ? "bg-[#262a34] border-[#f59e0b] ring-1 ring-[#f59e0b] shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                      : "bg-[#1c1f29] border-[#262a34] hover:bg-[#262a34]/60"
                   }`}
                 >
                   <span className="material-symbols-outlined text-[28px] text-[#ffc174]">
@@ -303,10 +342,10 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
             {/* Checkpoint list */}
             <div className="flex flex-col gap-2 text-left w-full max-w-sm">
               {[
-                'Analyzing skill taxonomy & dependencies',
-                'Personalizing milestone pacing',
-                'Tailoring daily commitment windows',
-                'Synthesizing initial quest & streak rewards',
+                "Analyzing skill taxonomy & dependencies",
+                "Personalizing milestone pacing",
+                "Tailoring daily commitment windows",
+                "Synthesizing initial quest & streak rewards",
               ].map((text, idx) => (
                 <div key={idx} className="flex items-center gap-2 text-[13px]">
                   {checkpointsDone > idx ? (
@@ -318,7 +357,7 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
                       sync
                     </span>
                   )}
-                  <span className={checkpointsDone > idx ? 'text-[#dfe2ef]' : 'text-[#a5b0c8]/50'}>
+                  <span className={checkpointsDone > idx ? "text-[#dfe2ef]" : "text-[#a5b0c8]/50"}>
                     {text}
                   </span>
                 </div>
@@ -373,7 +412,9 @@ export const JourneyBuilderModal: React.FC<JourneyBuilderModalProps> = ({
               </div>
               <div className="p-space-sm rounded-lg bg-[#0a0e17] border border-[#262a34] flex flex-col gap-1">
                 <span className="text-[11px] font-label-sm text-[#a5b0c8] font-bold">Phase 03</span>
-                <span className="font-label-md text-label-md text-[#dfe2ef]">Systems Architecture</span>
+                <span className="font-label-md text-label-md text-[#dfe2ef]">
+                  Systems Architecture
+                </span>
                 <span className="text-[10px] text-[#a5b0c8]">3 Quests • Advanced Scale</span>
               </div>
               <div className="p-space-sm rounded-lg bg-[#0a0e17] border border-[#262a34] flex flex-col gap-1">

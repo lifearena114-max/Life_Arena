@@ -19,7 +19,11 @@ export const Route = createFileRoute("/api/recalibrate")({
     handlers: {
       POST: async ({ request }) => {
         const parsed = Body.safeParse(await request.json().catch(() => null));
-        if (!parsed.success) return Response.json({ error: "Please describe what happened (at least a few words)." }, { status: 400 });
+        if (!parsed.success)
+          return Response.json(
+            { error: "Please describe what happened (at least a few words)." },
+            { status: 400 },
+          );
         const apiKey = process.env["LOVABLE_API_KEY"];
         if (!apiKey) return Response.json({ error: "AI is not configured." }, { status: 500 });
         const d = parsed.data;
@@ -32,7 +36,11 @@ What happened / what changed: ${d.setback}`;
           const upstream = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
             method: "POST",
             signal: request.signal,
-            headers: { "Content-Type": "application/json", "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "fetch" },
+            headers: {
+              "Content-Type": "application/json",
+              "Lovable-API-Key": apiKey,
+              "X-Lovable-AIG-SDK": "fetch",
+            },
             body: JSON.stringify({
               model: "openai/gpt-6-astra",
               instructions: SYSTEM,
@@ -46,13 +54,23 @@ What happened / what changed: ${d.setback}`;
           if (!upstream.ok) {
             const text = await upstream.text().catch(() => "");
             let message = "The coach couldn't respond right now.";
-            if (upstream.status === 429) message = "Too many requests — please try again in a moment.";
-            else if (upstream.status === 402) message = "AI credits are used up for this workspace. Add credits to continue.";
-            else { try { message = JSON.parse(text)?.error?.message ?? message; } catch { /* keep default */ } }
+            if (upstream.status === 429)
+              message = "Too many requests — please try again in a moment.";
+            else if (upstream.status === 402)
+              message = "AI credits are used up for this workspace. Add credits to continue.";
+            else {
+              try {
+                message = JSON.parse(text)?.error?.message ?? message;
+              } catch {
+                /* keep default */
+              }
+            }
             return Response.json({ error: message }, { status: upstream.status });
           }
           const headers = new Headers({ "Content-Type": "text/event-stream" });
-          upstream.headers.forEach((v, k) => { if (k.toLowerCase().startsWith("x-lovable-aig-")) headers.set(k, v); });
+          upstream.headers.forEach((v, k) => {
+            if (k.toLowerCase().startsWith("x-lovable-aig-")) headers.set(k, v);
+          });
           return new Response(upstream.body, { status: 200, headers });
         } catch (e) {
           if (request.signal.aborted) return new Response(null, { status: 499 });

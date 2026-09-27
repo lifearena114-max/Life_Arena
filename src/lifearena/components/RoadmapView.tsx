@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ASSETS } from '../data/mockData';
-import { NavScreen, RoadmapPhase, UserProfile } from '../types';
+import React, { useState } from "react";
+import { ASSETS } from "../data/mockData";
+import { NavScreen, RoadmapPhase, UserProfile } from "../types";
 
 interface RoadmapViewProps {
   user: UserProfile;
@@ -19,7 +19,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [regenSuccess, setRegenSuccess] = useState(false);
   const [showAddMilestone, setShowAddMilestone] = useState(false);
-  const [customMilestoneName, setCustomMilestoneName] = useState('');
+  const [customMilestoneName, setCustomMilestoneName] = useState("");
   const [activePhases, setActivePhases] = useState<RoadmapPhase[]>(phases);
 
   const handleRegeneratePace = () => {
@@ -37,7 +37,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
     setActivePhases((prev) =>
       prev.map((phase) => {
-        if (phase.id === 'phase-2') {
+        if (phase.id === "phase-2") {
           return {
             ...phase,
             items: [
@@ -52,9 +52,9 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
           };
         }
         return phase;
-      })
+      }),
     );
-    setCustomMilestoneName('');
+    setCustomMilestoneName("");
     setShowAddMilestone(false);
   };
 
@@ -64,14 +64,14 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-space-md mb-space-md">
         <nav className="flex items-center gap-space-xs text-[#a5b0c8] font-label-md text-label-md">
           <button
-            onClick={() => onNavigate('home')}
+            onClick={() => onNavigate("home")}
             className="hover:text-[#ffc174] transition-colors cursor-pointer"
           >
             Home
           </button>
           <span className="text-[#a5b0c8]/40">/</span>
           <button
-            onClick={() => onNavigate('goals')}
+            onClick={() => onNavigate("goals")}
             className="hover:text-[#ffc174] transition-colors cursor-pointer"
           >
             Goals
@@ -132,7 +132,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             </div>
 
             <button
-              onClick={() => onStartQuest('React Hooks & State Management')}
+              onClick={() => onStartQuest("React Hooks & State Management")}
               className="group relative flex items-center justify-center gap-space-sm px-space-lg py-space-md rounded-lg bg-[#f59e0b] text-[#472a00] font-label-lg text-label-lg shadow-[0px_0px_24px_-4px_rgba(245,158,11,0.35)] hover:bg-[#ffc174] transition-all duration-300 cursor-pointer font-bold"
             >
               <span className="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">
@@ -159,7 +159,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <div className="w-full h-2 bg-[#0a0e17] rounded-full overflow-hidden p-0.5">
               <div
                 className="h-full bg-gradient-to-r from-[#f59e0b] via-[#ffc174] to-[#56e5a9] rounded-full relative"
-                style={{ width: '42%' }}
+                style={{ width: "42%" }}
               >
                 <div className="absolute right-0 top-0 bottom-0 w-1.5 bg-white rounded-full shadow-[0_0_8px_#ffffff]" />
               </div>
@@ -371,7 +371,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     +75 XP
                   </span>
                   <button
-                    onClick={() => onStartQuest('React Hooks & State Management')}
+                    onClick={() => onStartQuest("React Hooks & State Management")}
                     className="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-[#f59e0b] text-[#472a00] font-label-md text-label-md shadow-md hover:bg-[#ffc174] transition-all cursor-pointer font-bold"
                   >
                     <span>Continue Quest</span>
@@ -390,9 +390,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     External APIs &amp; TanStack Query
                   </span>
                 </div>
-                <span className="font-label-sm text-label-sm text-[#a5b0c8]">
-                  Up Next • +60 XP
-                </span>
+                <span className="font-label-sm text-label-sm text-[#a5b0c8]">Up Next • +60 XP</span>
               </div>
 
               {/* Item 4: Locked */}
@@ -538,7 +536,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                 </div>
                 <p className="font-body-sm text-body-sm text-[#a5b0c8]">
                   Based on your <strong className="text-[#dfe2ef]">12-day streak</strong> and rapid
-                  syntax quiz scores in Phase 1, the AI has accelerated Phase 2 by{' '}
+                  syntax quiz scores in Phase 1, the AI has accelerated Phase 2 by{" "}
                   <span className="text-[#56e5a9] font-bold">4 days</span>.
                 </p>
               </div>
@@ -549,9 +547,9 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                   <span>Focus Recommendation</span>
                 </div>
                 <p className="font-body-sm text-body-sm text-[#a5b0c8]">
-                  Optimal cognitive retention window:{' '}
-                  <strong className="text-[#dfe2ef]">9:00 AM – 11:30 AM</strong>. You solve
-                  complex debugging challenges 38% faster during this timeframe.
+                  Optimal cognitive retention window:{" "}
+                  <strong className="text-[#dfe2ef]">9:00 AM – 11:30 AM</strong>. You solve complex
+                  debugging challenges 38% faster during this timeframe.
                 </p>
               </div>
             </div>

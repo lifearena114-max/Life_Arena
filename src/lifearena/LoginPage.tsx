@@ -38,7 +38,9 @@ export function LoginPage({ onSuccess }: { onSuccess: () => void }) {
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col px-5 py-7 sm:px-8 lg:px-12">
         <header className="flex items-center justify-between">
-          <Link to="/"><BrandMark /></Link>
+          <Link to="/">
+            <BrandMark />
+          </Link>
           <span className="text-xs font-semibold text-muted-foreground">WELCOME BACK</span>
         </header>
 
@@ -51,11 +53,17 @@ export function LoginPage({ onSuccess }: { onSuccess: () => void }) {
             </p>
 
             <form className="mt-8 space-y-4" onSubmit={submit} noValidate>
-              <Button type="button" variant="outline" className="h-12 w-full bg-card text-foreground">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-12 w-full bg-card text-foreground"
+              >
                 Continue with Google
               </Button>
               <div className="flex items-center gap-4 text-[10px] font-bold text-muted-foreground">
-                <span className="h-px flex-1 bg-border" />OR<span className="h-px flex-1 bg-border" />
+                <span className="h-px flex-1 bg-border" />
+                OR
+                <span className="h-px flex-1 bg-border" />
               </div>
 
               <label className="block text-xs font-semibold">
@@ -96,7 +104,11 @@ export function LoginPage({ onSuccess }: { onSuccess: () => void }) {
                 </span>
               </label>
 
-              {error && <p role="alert" className="text-xs text-destructive">{error}</p>}
+              {error && (
+                <p role="alert" className="text-xs text-destructive">
+                  {error}
+                </p>
+              )}
 
               <Button
                 type="submit"

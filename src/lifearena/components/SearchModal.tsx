@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { DecisionPoll, NavScreen, Quest, RoadmapPhase } from '../types';
+import React, { useState } from "react";
+import { DecisionPoll, NavScreen, Quest, RoadmapPhase } from "../types";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -20,24 +20,26 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   onSelectQuest,
   onNavigate,
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   if (!isOpen) return null;
 
-  const filteredQuests = quests.filter((q) =>
-    q.title.toLowerCase().includes(query.toLowerCase()) ||
-    q.tag.toLowerCase().includes(query.toLowerCase())
+  const filteredQuests = quests.filter(
+    (q) =>
+      q.title.toLowerCase().includes(query.toLowerCase()) ||
+      q.tag.toLowerCase().includes(query.toLowerCase()),
   );
 
   const filteredRoadmapItems = phases.flatMap((phase) =>
     phase.items
       .filter((item) => item.title.toLowerCase().includes(query.toLowerCase()))
-      .map((item) => ({ ...item, phaseTitle: phase.title }))
+      .map((item) => ({ ...item, phaseTitle: phase.title })),
   );
 
-  const filteredPolls = polls.filter((p) =>
-    p.question.toLowerCase().includes(query.toLowerCase()) ||
-    p.description.toLowerCase().includes(query.toLowerCase())
+  const filteredPolls = polls.filter(
+    (p) =>
+      p.question.toLowerCase().includes(query.toLowerCase()) ||
+      p.description.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
@@ -81,7 +83,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 >
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-[18px] text-[#56e5a9]">
-                      {q.completed ? 'check_circle' : 'radio_button_unchecked'}
+                      {q.completed ? "check_circle" : "radio_button_unchecked"}
                     </span>
                     <span className="text-body-sm font-body-sm text-[#dfe2ef]">{q.title}</span>
                   </div>
@@ -101,7 +103,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 <div
                   key={item.id}
                   onClick={() => {
-                    onNavigate('ai-journeys-quests');
+                    onNavigate("ai-journeys-quests");
                     onClose();
                   }}
                   className="flex items-center justify-between p-space-sm rounded-lg hover:bg-[#262a34] cursor-pointer transition-colors"
@@ -128,7 +130,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                 <div
                   key={poll.id}
                   onClick={() => {
-                    onNavigate('decision-arena');
+                    onNavigate("decision-arena");
                     onClose();
                   }}
                   className="flex items-center justify-between p-space-sm rounded-lg hover:bg-[#262a34] cursor-pointer transition-colors"

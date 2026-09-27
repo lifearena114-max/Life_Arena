@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { DecisionPoll, UserProfile } from '../types';
+import React, { useState } from "react";
+import { DecisionPoll, UserProfile } from "../types";
 
 interface AskArenaModalProps {
   isOpen: boolean;
@@ -14,13 +14,13 @@ export const AskArenaModal: React.FC<AskArenaModalProps> = ({
   user,
   onSubmitDilemma,
 }) => {
-  const [question, setQuestion] = useState('');
-  const [description, setDescription] = useState('');
-  const [optionAText, setOptionAText] = useState('');
-  const [optionASubtext, setOptionASubtext] = useState('');
-  const [optionBText, setOptionBText] = useState('');
-  const [optionBSubtext, setOptionBSubtext] = useState('');
-  const [category, setCategory] = useState<'career' | 'tech' | 'lifestyle' | 'money'>('tech');
+  const [question, setQuestion] = useState("");
+  const [description, setDescription] = useState("");
+  const [optionAText, setOptionAText] = useState("");
+  const [optionASubtext, setOptionASubtext] = useState("");
+  const [optionBText, setOptionBText] = useState("");
+  const [optionBSubtext, setOptionBSubtext] = useState("");
+  const [category, setCategory] = useState<"career" | "tech" | "lifestyle" | "money">("tech");
 
   if (!isOpen) return null;
 
@@ -33,29 +33,29 @@ export const AskArenaModal: React.FC<AskArenaModalProps> = ({
       author: {
         name: user.name,
         role: `${user.levelTitle} • Just now`,
-        timeAgo: 'Just now',
+        timeAgo: "Just now",
         avatar: user.avatar,
         online: true,
       },
       category,
       question: question.trim(),
-      description: description.trim() || 'Community input requested on this strategic trade-off.',
+      description: description.trim() || "Community input requested on this strategic trade-off.",
       totalVotes: 1,
-      userVoted: 'A',
+      userVoted: "A",
       optionA: {
         text: optionAText.trim(),
-        subtext: optionASubtext.trim() || 'First strategic route',
+        subtext: optionASubtext.trim() || "First strategic route",
         votes: 1,
         percent: 100,
       },
       optionB: {
         text: optionBText.trim(),
-        subtext: optionBSubtext.trim() || 'Alternative route',
+        subtext: optionBSubtext.trim() || "Alternative route",
         votes: 0,
         percent: 0,
       },
       aiInsight:
-        'AI Synthesis: Both pathways offer distinct variance in short-term versus long-term returns. Prioritize based on your immediate focus constraint.',
+        "AI Synthesis: Both pathways offer distinct variance in short-term versus long-term returns. Prioritize based on your immediate focus constraint.",
       commentsCount: 0,
     };
 
@@ -86,15 +86,15 @@ export const AskArenaModal: React.FC<AskArenaModalProps> = ({
           <div className="flex flex-col gap-1">
             <label className="text-label-sm font-label-sm text-[#a5b0c8]">Domain Category</label>
             <div className="grid grid-cols-4 gap-2">
-              {(['career', 'tech', 'lifestyle', 'money'] as const).map((cat) => (
+              {(["career", "tech", "lifestyle", "money"] as const).map((cat) => (
                 <button
                   key={cat}
                   type="button"
                   onClick={() => setCategory(cat)}
                   className={`py-1.5 text-xs font-label-md rounded-lg border uppercase transition-all ${
                     category === cat
-                      ? 'bg-[#f59e0b] text-[#472a00] font-bold border-[#f59e0b]'
-                      : 'bg-[#1c1f29] text-[#a5b0c8] border-[#262a34]'
+                      ? "bg-[#f59e0b] text-[#472a00] font-bold border-[#f59e0b]"
+                      : "bg-[#1c1f29] text-[#a5b0c8] border-[#262a34]"
                   }`}
                 >
                   {cat}

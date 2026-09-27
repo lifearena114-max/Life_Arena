@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface SpeedQuestModalProps {
   isOpen: boolean;
@@ -62,9 +62,9 @@ export const SpeedQuestModal: React.FC<SpeedQuestModalProps> = ({
         {/* Answer Options */}
         <div className="grid grid-cols-1 gap-2">
           {[
-            { text: 'A, B, C, D', desc: 'Synchronous execution order' },
-            { text: 'A, D, C, B', desc: 'Sync stack -&gt; Microtask Queue -&gt; Macrotask Queue' },
-            { text: 'A, C, D, B', desc: 'Promise resolves before final synchronous call' },
+            { text: "A, B, C, D", desc: "Synchronous execution order" },
+            { text: "A, D, C, B", desc: "Sync stack -&gt; Microtask Queue -&gt; Macrotask Queue" },
+            { text: "A, C, D, B", desc: "Promise resolves before final synchronous call" },
           ].map((opt, idx) => (
             <div
               key={idx}
@@ -72,9 +72,9 @@ export const SpeedQuestModal: React.FC<SpeedQuestModalProps> = ({
               className={`p-space-sm rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
                 selectedAnswer === idx
                   ? isCorrect
-                    ? 'bg-[#30c88f]/20 border-[#56e5a9] text-[#56e5a9]'
-                    : 'bg-red-500/20 border-red-500 text-red-300'
-                  : 'bg-[#1c1f29] border-[#262a34] hover:bg-[#262a34]'
+                    ? "bg-[#30c88f]/20 border-[#56e5a9] text-[#56e5a9]"
+                    : "bg-red-500/20 border-red-500 text-red-300"
+                  : "bg-[#1c1f29] border-[#262a34] hover:bg-[#262a34]"
               }`}
             >
               <div className="flex flex-col">
@@ -83,7 +83,7 @@ export const SpeedQuestModal: React.FC<SpeedQuestModalProps> = ({
               </div>
               {selectedAnswer === idx && (
                 <span className="material-symbols-outlined text-[20px]">
-                  {isCorrect ? 'check_circle' : 'cancel'}
+                  {isCorrect ? "check_circle" : "cancel"}
                 </span>
               )}
             </div>
