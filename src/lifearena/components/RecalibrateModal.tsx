@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { Quest, RoadmapPhase, UserProfile } from "../types";
 
-type Adjustment = {
-  title?: unknown;
-  why?: unknown;
-  type?: unknown;
-  tag?: unknown;
-  xp?: unknown;
-};
-
 interface Adjustment {
   title: string;
   why: string;

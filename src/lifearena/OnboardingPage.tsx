@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Clock3, Flag, ShieldCheck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Clock3, Flag, Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { commitments, durations, focusAreas, motivations } from "./flow-data";
 
@@ -16,7 +16,7 @@ export function OnboardingPage({
   onComplete,
 }: {
   onBack: () => void;
-  onComplete: (data: JourneyInput) => void;
+  onComplete: (data: JourneyInput) => Promise<void> | void;
 }) {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string[]>(["coding", "fitness"]);
@@ -24,13 +24,35 @@ export function OnboardingPage({
   const [duration, setDuration] = useState("3 months");
   const [commitment, setCommitment] = useState("45 mins / day");
   const [motivation, setMotivation] = useState("Mastery & Competence");
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const isMountedRef = useRef(true);
   const labels = ["Focus Area", "Your Goal", "Daily Time", "Motivation"];
 
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  const finish = async () => {
+    if (isSaving) return;
+    setSaveError("");
+    setIsSaving(true);
+    try {
+      await onComplete({ goal, domain: selected[0] ?? "coding", duration, commitment, motivation });
+    } catch (error) {
+      if (!isMountedRef.current) return;
+      setSaveError(
+        error instanceof Error ? error.message : "Couldn't save your answers. Please try again.",
+      );
+    } finally {
+      if (isMountedRef.current) setIsSaving(false);
+    }
+  };
+
   const back = () => (step === 1 ? onBack() : setStep((value) => value - 1));
-  const next = () =>
-    step < 4
-      ? setStep((value) => value + 1)
-      : onComplete({ goal, domain: selected[0] ?? "coding", duration, commitment, motivation });
+  const next = () => (step < 4 ? setStep((value) => value + 1) : void finish());
   const toggleArea = (id: string) =>
     setSelected((areas) =>
       areas.includes(id)
@@ -45,24 +67,13 @@ export function OnboardingPage({
       <div className="mx-auto max-w-6xl">
         <header className="mb-8 space-y-4">
           <div className="flex items-center justify-between">
-            <Button variant="ghost" onClick={back}>
+            <Button variant="ghost" onClick={back} disabled={isSaving}>
               <ArrowLeft /> Back
             </Button>
             <div className="rounded-full bg-card px-4 py-2 font-display text-sm font-bold text-primary">
               0{step} <span className="text-muted-foreground">/ 04</span>
             </div>
-            <Button
-              variant="ghost"
-              onClick={() =>
-                onComplete({
-                  goal,
-                  domain: selected[0] ?? "coding",
-                  duration,
-                  commitment,
-                  motivation,
-                })
-              }
-            >
+            <Button variant="ghost" onClick={() => void finish()} disabled={isSaving}>
               Save & Exit
             </Button>
           </div>
@@ -222,6 +233,11 @@ export function OnboardingPage({
             </>
           )}
         </section>
+        {saveError && (
+          <p role="alert" className="mt-4 text-xs text-destructive">
+            {saveError}
+          </p>
+        )}
         <div className="sticky bottom-4 mt-8 flex items-center justify-between gap-4 rounded-lg border border-border bg-background/90 p-4 shadow-2xl backdrop-blur-xl">
           <div>
             <b className="text-sm">
@@ -238,10 +254,22 @@ export function OnboardingPage({
           </div>
           <Button
             onClick={next}
-            disabled={(step === 1 && !selected.length) || (step === 2 && !goal.trim())}
+            disabled={isSaving || (step === 1 && !selected.length) || (step === 2 && !goal.trim())}
             className="h-12 px-6 font-bold"
           >
-            {step === 4 ? "Build My Journey" : `Continue to Step ${step + 1}`} <ArrowRight />
+            {isSaving ? (
+              <>
+                <Loader2 className="animate-spin" /> Saving...
+              </>
+            ) : step === 4 ? (
+              <>
+                Build My Journey <ArrowRight />
+              </>
+            ) : (
+              <>
+                {`Continue to Step ${step + 1}`} <ArrowRight />
+              </>
+            )}
           </Button>
         </div>
       </div>
