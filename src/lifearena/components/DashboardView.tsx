@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import type { Goal } from "@/lib/database.types";
 import { NavScreen, Quest, SquadActivity, UserProfile } from "../types";
 
 interface DashboardViewProps {
   user: UserProfile;
   quests: Quest[];
   squadActivities: SquadActivity[];
+  goals: Goal[];
+  goalsLoading: boolean;
+  goalsError: string | null;
   onToggleQuest: (questId: string) => void;
   onCheerSquad: (activityId: string) => void;
   onNavigate: (screen: NavScreen) => void;
@@ -12,12 +16,16 @@ interface DashboardViewProps {
   onOpenSpeedQuest: () => void;
   onDailyCheckin: () => void;
   onOpenAskArena: () => void;
+  onOpenCreateGoal: () => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
   user,
   quests,
   squadActivities,
+  goals,
+  goalsLoading,
+  goalsError,
   onToggleQuest,
   onCheerSquad,
   onNavigate,
@@ -25,6 +33,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenSpeedQuest,
   onDailyCheckin,
   onOpenAskArena,
+  onOpenCreateGoal,
 }) => {
   // Timer state for Quest 2
   const [timerSeconds, setTimerSeconds] = useState(18 * 60 + 42);
@@ -539,6 +548,87 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   </div>
                 </div>
               </div>
+            </section>
+
+            {/* Your Goals Module (real, persisted goals) */}
+            <section className="rounded-xl bg-[#1c1f29] p-space-lg shadow-[0_4px_20px_-2px_rgba(0,0,0,0.5)] border border-[#262a34]/40 flex flex-col gap-space-md">
+              <div className="flex items-center justify-between pb-space-sm border-b border-[#262a34]/40">
+                <span className="font-label-sm text-label-sm uppercase tracking-wider text-[#c0c1ff]">
+                  Your Goals
+                </span>
+                <button
+                  onClick={onOpenCreateGoal}
+                  className="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-[#262a34] hover:bg-[#353943] text-[#ffc174] font-label-md text-label-md transition-all cursor-pointer border border-[#31353f]"
+                >
+                  <span className="material-symbols-outlined text-[16px]">add</span>
+                  New Goal
+                </button>
+              </div>
+
+              {goalsError && (
+                <div className="text-sm text-[#ffb4ab] bg-[#93000a]/20 border border-[#93000a]/40 rounded-lg p-3">
+                  {goalsError}
+                </div>
+              )}
+
+              {goalsLoading ? (
+                <div className="flex items-center gap-2 text-[#a5b0c8] text-sm py-space-md">
+                  <span className="material-symbols-outlined text-[18px] animate-spin">
+                    progress_activity
+                  </span>
+                  Loading your goals…
+                </div>
+              ) : goals.length === 0 ? (
+                <div className="flex flex-col items-center text-center gap-space-xs py-space-lg text-[#a5b0c8]">
+                  <span className="material-symbols-outlined text-[28px] text-[#a5b0c8]/60">
+                    flag
+                  </span>
+                  <p className="font-body-sm text-[13px]">
+                    No goals yet. Create your first one to start your journey.
+                  </p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-space-sm">
+                  {goals.map((goal) => (
+                    <div
+                      key={goal.id}
+                      className="flex items-start justify-between gap-space-sm bg-[#181b25] border border-[#262a34]/60 rounded-xl p-space-md"
+                    >
+                      <div className="flex flex-col min-w-0 gap-0.5">
+                        <span className="font-label-md text-label-md text-[#dfe2ef] font-semibold truncate">
+                          {goal.title}
+                        </span>
+                        {goal.description && (
+                          <span className="text-[12px] text-[#a5b0c8] line-clamp-2">
+                            {goal.description}
+                          </span>
+                        )}
+                        <div className="flex items-center gap-2 mt-1">
+                          {goal.category && (
+                            <span className="px-1.5 py-0.5 rounded bg-[#262a34] text-[#c0c1ff] font-mono text-[10px]">
+                              {goal.category}
+                            </span>
+                          )}
+                          {goal.target_date && (
+                            <span className="text-[11px] text-[#a5b0c8]">
+                              Target: {goal.target_date}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span
+                        className={`flex-shrink-0 px-1.5 py-0.5 rounded font-mono text-[10px] uppercase ${
+                          goal.status === "active"
+                            ? "bg-[#56e5a9]/20 text-[#56e5a9]"
+                            : "bg-[#262a34] text-[#a5b0c8]"
+                        }`}
+                      >
+                        {goal.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
 
             {/* Current Goal Journey Snapshot Module */}

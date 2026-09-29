@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { AskArenaModal } from "./components/AskArenaModal";
 import { RecalibrateModal } from "./components/RecalibrateModal";
 import { DailyCheckinModal } from "./components/DailyCheckinModal";
+import { CreateGoalModal } from "./components/CreateGoalModal";
 import { DashboardView } from "./components/DashboardView";
 import { DecisionArenaView } from "./components/DecisionArenaView";
+import { GoalsView } from "./components/GoalsView";
 import { Header } from "./components/Header";
 import { JourneyBuilderModal } from "./components/JourneyBuilderModal";
+import { useGoals } from "./hooks/useGoals";
 import { ProfileView } from "./components/ProfileView";
 import { ReflectionModal } from "./components/ReflectionModal";
 import { RoadmapView } from "./components/RoadmapView";
@@ -21,6 +24,7 @@ import {
   INITIAL_USER,
 } from "./data/mockData";
 import { DecisionPoll, NavScreen, Quest, RoadmapPhase, SquadActivity, UserProfile } from "./types";
+import type { Goal } from "@/lib/database.types";
 
 export default function App({
   initialGoal,
@@ -45,6 +49,8 @@ export default function App({
   const [isSpeedQuestOpen, setIsSpeedQuestOpen] = useState(false);
   const [isAskArenaOpen, setIsAskArenaOpen] = useState(false);
   const [isJourneyBuilderOpen, setIsJourneyBuilderOpen] = useState(false);
+  const [isCreateGoalOpen, setIsCreateGoalOpen] = useState(false);
+  const { goals, loading: goalsLoading, error: goalsError, createGoal } = useGoals();
   const [isRecalOpen, setIsRecalOpen] = useState(false);
   const [activeReflectionQuest, setActiveReflectionQuest] = useState<Quest | null>(null);
 
@@ -198,6 +204,18 @@ export default function App({
     setCurrentScreen("ai-journeys-quests");
   };
 
+  // Select a real, persisted goal (from GoalsView). This only updates which
+  // goal is highlighted as the current focus in the existing mock UI state —
+  // it does not attach a roadmap, since AI journey generation for a real
+  // goal isn't implemented yet.
+  const handleSelectGoal = (goal: Goal) => {
+    setUser((u) => ({
+      ...u,
+      primaryAnchor: goal.title,
+    }));
+    setCurrentScreen("home");
+  };
+
   // Reset Demo state
   const handleResetDemo = () => {
     setUser(INITIAL_USER);
@@ -235,6 +253,9 @@ export default function App({
               user={user}
               quests={quests}
               squadActivities={squadActivities}
+              goals={goals}
+              goalsLoading={goalsLoading}
+              goalsError={goalsError}
               onToggleQuest={handleToggleQuest}
               onCheerSquad={handleCheerSquad}
               onNavigate={setCurrentScreen}
@@ -242,10 +263,22 @@ export default function App({
               onOpenSpeedQuest={() => setIsSpeedQuestOpen(true)}
               onDailyCheckin={() => setIsCheckinOpen(true)}
               onOpenAskArena={() => setIsAskArenaOpen(true)}
+              onOpenCreateGoal={() => setIsCreateGoalOpen(true)}
             />
           )}
 
-          {(currentScreen === "goals" || currentScreen === "ai-journeys-quests") && (
+          {currentScreen === "goals" && (
+            <GoalsView
+              goals={goals}
+              goalsLoading={goalsLoading}
+              goalsError={goalsError}
+              onNavigate={setCurrentScreen}
+              onSelectGoal={handleSelectGoal}
+              onOpenCreateGoal={() => setIsCreateGoalOpen(true)}
+            />
+          )}
+
+          {currentScreen === "ai-journeys-quests" && (
             <RoadmapView
               user={user}
               phases={roadmapPhases}
@@ -335,6 +368,16 @@ export default function App({
         isOpen={isJourneyBuilderOpen}
         onClose={() => setIsJourneyBuilderOpen(false)}
         onJourneyCreated={handleJourneyCreated}
+      />
+
+      <CreateGoalModal
+        isOpen={isCreateGoalOpen}
+        onClose={() => setIsCreateGoalOpen(false)}
+        onCreate={async (input) => {
+          const goal = await createGoal(input);
+          showToast("Goal Created! 🎯", `"${goal.title}" was added to your goals.`);
+          return goal;
+        }}
       />
 
       <RecalibrateModal
