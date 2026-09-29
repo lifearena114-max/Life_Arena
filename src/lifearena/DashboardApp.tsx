@@ -5,6 +5,7 @@ import { DailyCheckinModal } from "./components/DailyCheckinModal";
 import { CreateGoalModal } from "./components/CreateGoalModal";
 import { DashboardView } from "./components/DashboardView";
 import { DecisionArenaView } from "./components/DecisionArenaView";
+import { GoalDetailView } from "./components/GoalDetailView";
 import { GoalsView } from "./components/GoalsView";
 import { Header } from "./components/Header";
 import { JourneyBuilderModal } from "./components/JourneyBuilderModal";
@@ -50,6 +51,7 @@ export default function App({
   const [isAskArenaOpen, setIsAskArenaOpen] = useState(false);
   const [isJourneyBuilderOpen, setIsJourneyBuilderOpen] = useState(false);
   const [isCreateGoalOpen, setIsCreateGoalOpen] = useState(false);
+  const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
   const { goals, loading: goalsLoading, error: goalsError, createGoal } = useGoals();
   const [isRecalOpen, setIsRecalOpen] = useState(false);
   const [activeReflectionQuest, setActiveReflectionQuest] = useState<Quest | null>(null);
@@ -204,16 +206,19 @@ export default function App({
     setCurrentScreen("ai-journeys-quests");
   };
 
-  // Select a real, persisted goal (from GoalsView). This only updates which
-  // goal is highlighted as the current focus in the existing mock UI state —
-  // it does not attach a roadmap, since AI journey generation for a real
-  // goal isn't implemented yet.
+  // Select a real, persisted goal (from GoalsView) and open its Goal Detail
+  // screen. Selection is by Goal.id, so multiple goals resolve correctly —
+  // GoalDetailView looks the goal up from the same useGoals() list rather
+  // than a copy being passed down.
   const handleSelectGoal = (goal: Goal) => {
-    setUser((u) => ({
-      ...u,
-      primaryAnchor: goal.title,
-    }));
-    setCurrentScreen("home");
+    setSelectedGoalId(goal.id);
+    setCurrentScreen("goal-detail");
+  };
+
+  // Placeholder entry point for AI Journey generation. Intentionally does
+  // not generate anything yet.
+  const handleGenerateJourney = (goal: Goal) => {
+    showToast("Coming Soon", `AI Journey generation for "${goal.title}" isn't available yet.`);
   };
 
   // Reset Demo state
@@ -275,6 +280,14 @@ export default function App({
               onNavigate={setCurrentScreen}
               onSelectGoal={handleSelectGoal}
               onOpenCreateGoal={() => setIsCreateGoalOpen(true)}
+            />
+          )}
+
+          {currentScreen === "goal-detail" && (
+            <GoalDetailView
+              goal={goals.find((g) => g.id === selectedGoalId)}
+              onBackToGoals={() => setCurrentScreen("goals")}
+              onGenerateJourney={handleGenerateJourney}
             />
           )}
 
